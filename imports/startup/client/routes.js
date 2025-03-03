@@ -1,0 +1,35 @@
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+
+// Import needed templates
+import '../../ui/layouts/body/body.js';
+import '../../ui/pages/home/home.js';
+import '../../ui/pages/borrow/borrow.js';
+import '../../ui/pages/borrow/list/list.js';
+
+// Set up all routes in the app
+FlowRouter.route('/', {
+  name: 'App.home',
+  action() {
+    this.render('App_body', 'App_home');
+  },
+});
+
+FlowRouter.route('/borrow', {
+  name: 'App.borrow',
+  action() {
+    this.render('App_body', 'App_borrow');
+  },
+});
+
+FlowRouter.route('/borrow/list', {
+  name: 'App.borrow.list',
+  action() {
+    this.render('App_body', 'App_borrow_list');
+  },
+});
+
+FlowRouter.route('*', {
+  action() {
+    FlowRouter.go('/');
+  },
+});

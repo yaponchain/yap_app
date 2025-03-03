@@ -1,0 +1,42 @@
+{
+  "name": "meteor-app",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.17.9",
+    "@rainbow-me/rainbowkit": "^2.2.4",
+    "@reown/appkit": "^1.6.9",
+    "@reown/appkit-adapter-ethers": "^1.6.9",
+    "@reown/appkit-scaffold-ui": "^1.6.9",
+    "@reown/appkit-utils": "^1.6.9",
+    "@reown/walletkit": "^1.2.1",
+    "@wagmi/core": "^2.16.5",
+    "@walletconnect/core": "^2.19.0",
+    "@walletconnect/modal": "^2.7.0",
+    "@walletconnect/sign-client": "^2.19.0",
+    "@walletconnect/utils": "^2.19.0",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "desandro-matches-selector": "^2.0.2",
+    "ethers": "^6.13.5",
+    "ev-emitter": "^2.1.2",
+    "feather-icons": "^4.29.2",
+    "fizzy-ui-utils": "^3.0.0",
+    "get-size": "^3.0.0",
+    "imagesloaded": "^5.0.0",
+    "isotope-layout": "^3.0.6",
+    "jquery": "^3.6.0",
+    "masonry-layout": "^4.2.2",
+    "meteor-node-stubs": "^1.2.1",
+    "outlayer": "^2.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sal.js": "^0.8.5",
+    "wagmi": "^2.14.12"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0"
+  }
+}
