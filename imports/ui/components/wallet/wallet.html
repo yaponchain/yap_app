@@ -1,0 +1,11 @@
+<template name="wallet">
+    {{#if connectedAddress}}
+    <div class="icon-box">
+        <a id="disconnectbtn" class="btn btn-primary-alta btn-small">{{connectedAddress}}</a>
+    </div>
+    {{else}}
+    <div class="icon-box">
+        <a id="connectbtn" class="btn btn-primary-alta btn-small">Connect Wallet</a>
+    </div>
+    {{/if}}
+</template>

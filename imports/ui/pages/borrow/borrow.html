@@ -1,0 +1,136 @@
+<template name="App_borrow">
+    {{> header}}
+    <!-- start page title area -->
+    <div class="rn-breadcrumb-inner ptb--30">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h5 class="title text-center text-md-start">List to get offers</h5>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-list">
+                        <li class="item"><a href="/">Home</a></li>
+                        <li class="separator"><i class="feather-chevron-right"></i></li>
+                        <li class="item current">Borrow</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title area -->
+
+
+    <!-- live Bidding area start -->
+    <div class="rn-live-bidding-area rn-section-gapTop">
+        <div class="container">
+            <div class="row g-5 mt_dec--30">
+                {{#each project in list}}
+                    {{#each item in project.items}}
+                        <!-- start single product -->
+                        <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 list">
+                            <div class="product-style-one">
+                                {{#if project.verified}}
+                                <img class="verified" src="/images/icons/verified.svg">
+                                {{/if}}
+                                <div class="card-thumbnail">
+                                    {{#if item.image}}
+                                    <a><img src="{{item.image}}" alt="{{project.contractAddress}}"></a>
+                                    {{else}}
+                                    <a><img src="/images/logo/logo_contrast.png"></a>
+                                    {{/if}}
+                                </div>
+                                <div class="product-share-wrapper">
+                                    <div class="profile-share">
+                                            {{#if validateImage project.image}}
+                                             <a class="avatar">
+                                                <img src="{{#if project.image}}{{project.image}}{{else}}/images/logo/logo_contrast.png{{/if}}" srcset="{{#if project.image}}{{project.image}}{{else}}/images/logo/logo_contrast.png{{/if}}">
+                                            </a>
+                                            {{else}}
+                                             <a class="svg-link-wrapper">
+                                                <div class="svg-object-container">
+                                                    <object class="svg-object" type="image/svg+xml" data="{{project.image}}"></object>
+                                                </div>
+                                            </a>
+                                            {{/if}}
+                                        <a class="more-author-text" href="explore-live.html#">{{project.name}}</a>
+                                    </div>
+                                </div>
+                                <div class="bid-react-area">
+                                    <div class="react-area">
+                                        <span class="number">#{{item.tokenId}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end single product -->
+                    {{/each}}
+                {{/each}}
+            </div>
+            <div class="row mt--80">
+                <div class="col-12">
+                    <!-- start Table Title -->
+                    <div class="table-title-area d-flex">
+                        <i data-feather="calendar"></i>
+                        <h3>List history</h3>
+                    </div>
+                    <!-- End Table Title -->
+
+                    <!-- table area Start -->
+
+                    <div class="box-table table-responsive">
+                        <table class="table upcoming-projects">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span>Project</span>
+                                    </th>
+                                    <th>
+                                        <span>Principal</span>
+                                    </th>
+                                    <th>
+                                        <span>Token</span>
+                                    </th>
+                                    <th>
+                                        <span>Days</span>
+                                    </th>
+                                    <th>
+                                        <span>APR (%)</span>
+                                    </th>
+                                    <th>
+                                        <span>Date</span>
+                                    </th>
+                                    <th>
+                                        <span>Action</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="color-light">
+                                    <td><span>Project Name</span></td>
+                                    <td><span class="color-green">10</span></td>
+                                    <td><span>MON</span></td>
+                                    <td><span>30</span></td>
+                                    <td><span>15</span></td>
+                                    <td><span>01/01/2024 12:00</span></td>
+                                    <td><span class="color-danger">Cancel</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Project Name</span></td>
+                                    <td><span class="color-green">15</span></td>
+                                    <td><span>USDC</span></td>
+                                    <td><span>45</span></td>
+                                    <td><span>20</span></td>
+                                    <td><span>10/01/2024 12:00</span></td>
+                                    <td><span>-</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- table End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- live Bidding area End -->
+    {{> footer}}
+</template>

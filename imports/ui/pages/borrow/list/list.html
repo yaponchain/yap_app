@@ -1,0 +1,109 @@
+<template name="App_borrow_list">
+    {{> header}}
+    <!-- start page title area -->
+    <div class="rn-breadcrumb-inner ptb--30">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h5 class="title text-center text-md-start">List your NFT</h5>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-list">
+                        <li class="item"><a href="/">Home</a></li>
+                        <li class="separator"><i class="feather-chevron-right"></i></li>
+                        <li class="item"><a href="/borrow">Borrow</a></li>
+                        <li class="separator"><i class="feather-chevron-right"></i></li>
+                        <li class="item current">List</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title area -->
+
+    <!-- start product details area -->
+    <div class="product-details-area rn-section-gapTop">
+        <div class="container">
+            <div class="row g-1">
+                <!-- product image area -->
+                <div class="col-lg-5 col-md-12 col-sm-12">
+                    <div class="product-tab-wrapper rbt-sticky-top-adjust">
+                        <div class="pd-tab-inner">
+                            <div class="tab-content rn-pd-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div class="rn-pd-thumbnail">
+                                        <img src="/images/portfolio/lg/portfolio-03.jpg" alt="Nft_Profile">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- product image area end -->
+
+                <div class="col-lg-7 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div class="create-collection-form-wrapper">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="collection-single-wized">
+                                    <label for="name" class="title">Principal</label>
+                                    <div class="create-collection-input">
+                                        <input id="name" class="name" type="number" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                 <div class="collection-single-wized">
+                                    <label class="title">Token</label>
+                                    <div class="create-collection-input">
+                                        <div class="nice-select mb--30" tabindex="0">
+                                            <span class="current">MON</span>
+                                            <ul class="list">
+                                                <li data-value="MON" data-display="MON" class="option selected focus">MON</li>
+                                                <li data-value="USDC" data-display="USDC" class="option">USDC</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="collection-single-wized">
+                                    <label for="name" class="title">Repay</label>
+                                    <div class="create-collection-input">
+                                        <input id="name" class="name" type="number" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="collection-single-wized">
+                                    <label for="name" class="title">Days</label>
+                                    <div class="create-collection-input">
+                                        <input id="name" class="name" type="number" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="collection-single-wized">
+                                    <label for="name" class="title">APR (%)</label>
+                                    <div class="create-collection-input">
+                                        <input id="name" class="name" type="number" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="button-wrapper">
+                                    <!-- <a href="#" class="btn btn-primary btn-large mr-30" data-bs-toggle="modal" data-bs-target="#collectionModal">Preview</a> -->
+                                    <a href="/borrow" class="btn btn-primary-alta btn-large">Create terms</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End product details area -->
+    {{> footer}}
+</template>
