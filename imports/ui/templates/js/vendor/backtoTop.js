@@ -3,7 +3,8 @@
 	$(document).ready(function(){"use strict";
 		
 		var progressPath = document.querySelector('.rn-progress-parent path');
-		var pathLength = progressPath.getTotalLength();
+		if(progressPath == null) return;
+		var pathLength = progressPath?.getTotalLength();
 		progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
 		progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
 		progressPath.style.strokeDashoffset = pathLength;

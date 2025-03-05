@@ -24,10 +24,10 @@
     <div class="rn-live-bidding-area rn-section-gapTop">
         <div class="container">
             <div class="row g-5 mt_dec--30">
-                {{#each project in list}}
+                {{#each project in list.items}}
                     {{#each item in project.items}}
                         <!-- start single product -->
-                        <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 list">
+                        <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 list" data-contract="{{project.contractAddress}}" data-token="{{item.tokenId}}">
                             <div class="product-style-one">
                                 {{#if project.verified}}
                                 <img class="verified" src="/images/icons/verified.svg">
@@ -42,17 +42,17 @@
                                 <div class="product-share-wrapper">
                                     <div class="profile-share">
                                             {{#if validateImage project.image}}
-                                             <a class="avatar">
+                                             <a class="avatar" data-tooltip="{{project.name}}">
                                                 <img src="{{#if project.image}}{{project.image}}{{else}}/images/logo/logo_contrast.png{{/if}}" srcset="{{#if project.image}}{{project.image}}{{else}}/images/logo/logo_contrast.png{{/if}}">
                                             </a>
                                             {{else}}
-                                             <a class="svg-link-wrapper">
+                                             <a class="avatar svg-link-wrapper" data-tooltip="{{project.name}}">
                                                 <div class="svg-object-container">
                                                     <object class="svg-object" type="image/svg+xml" data="{{project.image}}"></object>
                                                 </div>
                                             </a>
                                             {{/if}}
-                                        <a class="more-author-text" href="explore-live.html#">{{project.name}}</a>
+                                        <a class="more-author-text" href="#">{{project.name}}</a>
                                     </div>
                                 </div>
                                 <div class="bid-react-area">
@@ -85,6 +85,9 @@
                                         <span>Project</span>
                                     </th>
                                     <th>
+                                        <span>ID</span>
+                                    </th>
+                                    <th>
                                         <span>Principal</span>
                                     </th>
                                     <th>
@@ -105,24 +108,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="color-light">
-                                    <td><span>Project Name</span></td>
-                                    <td><span class="color-green">10</span></td>
-                                    <td><span>MON</span></td>
-                                    <td><span>30</span></td>
-                                    <td><span>15</span></td>
-                                    <td><span>01/01/2024 12:00</span></td>
-                                    <td><span class="color-danger">Cancel</span></td>
+                                {{#each t in terms}}
+                                <tr {{!-- class="color-light" --}}>
+                                    <td><span>{{t.project.name}}</span></td>
+                                    <td><span>#{{t.project.token.tokenId}}</span></td>
+                                    <td><span class="color-green">{{t.term.principal}}</span></td>
+                                    <td><span>{{t.term.token}}</span></td>
+                                    <td><span>{{t.term.days}}</span></td>
+                                    <td><span>{{t.term.apr}}</span></td>
+                                    <td><span>{{normalize_date t.createdAt}}</span></td>
+                                    <td><span class="color-danger">-</span></td>
                                 </tr>
-                                <tr>
-                                    <td><span>Project Name</span></td>
-                                    <td><span class="color-green">15</span></td>
-                                    <td><span>USDC</span></td>
-                                    <td><span>45</span></td>
-                                    <td><span>20</span></td>
-                                    <td><span>10/01/2024 12:00</span></td>
-                                    <td><span>-</span></td>
-                                </tr>
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>

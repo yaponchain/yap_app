@@ -21,7 +21,7 @@ FlowRouter.route('/borrow', {
   },
 });
 
-FlowRouter.route('/borrow/list', {
+FlowRouter.route('/borrow/:contract/:token', {
   name: 'App.borrow.list',
   action() {
     this.render('App_body', 'App_borrow_list');

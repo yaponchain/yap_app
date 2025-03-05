@@ -1,3 +1,4 @@
+// @ts-ignore
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
@@ -17,6 +18,7 @@ Template.App_home.onRendered(function() {
         threshold: 0.1,
         once: true,
     });
+    // @ts-ignore
     $('.slick-activation-01').slick({
         infinite: true,
         slidesToShow: 3,
@@ -53,6 +55,7 @@ Template.App_home.onRendered(function() {
         ]
     });
 
+    // @ts-ignore
     $('.slick-activation-02').slick({
         infinite: true,
         slidesToShow: 4,
@@ -89,6 +92,7 @@ Template.App_home.onRendered(function() {
         ]
     });
 
+    // @ts-ignore
     $('.slick-activation-03').slick({
         infinite: true,
         slidesToShow: 5,
@@ -132,6 +136,7 @@ Template.App_home.onRendered(function() {
         ]
     });
 
+    // @ts-ignore
     $('.slick-activation-04').slick({
         infinite: true,
         slidesToShow: 1,
@@ -142,6 +147,7 @@ Template.App_home.onRendered(function() {
         adaptiveHeight: true,
     });
 
+    // @ts-ignore
     $('.slick-activation-05').slick({
         infinite: true,
         slidesToShow: 5,
@@ -185,6 +191,7 @@ Template.App_home.onRendered(function() {
         ]
     });
 
+    // @ts-ignore
     $('.slick-activation-06').slick({
         infinite: true,
         slidesToShow: 1,
@@ -205,6 +212,7 @@ Template.App_home.onRendered(function() {
         ]
     });
 
+    // @ts-ignore
     $('.slick-activation-07').slick({
         infinite: true,
         slidesToShow: 5,
@@ -246,6 +254,7 @@ Template.App_home.onRendered(function() {
         ]
     });
 
+    // @ts-ignore
     $('.slick-activation-08').slick({
         infinite: true,
         slidesToShow: 4,
@@ -289,6 +298,7 @@ Template.App_home.onRendered(function() {
         ]
     });
 
+    // @ts-ignore
     $('.slick-activation-09').slick({
         infinite: true,
         slidesToShow: 1,
@@ -299,6 +309,7 @@ Template.App_home.onRendered(function() {
         adaptiveHeight: true,
     });
 
+    // @ts-ignore
     $('.slider-activation-banner-3').slick({
         infinite: true,
         slidesToShow: 1,
@@ -318,6 +329,7 @@ Template.App_home.onRendered(function() {
         }
         ]
     });
+    // @ts-ignore
     $('.slider-activation-banner-5').slick({
         infinite: true,
         slidesToShow: 1,
@@ -337,6 +349,7 @@ Template.App_home.onRendered(function() {
         }
         ]
     });
+    // @ts-ignore
     $('.slider-activation-banner-4').slick({
         infinite: true,
         slidesToShow: 1,
@@ -349,6 +362,7 @@ Template.App_home.onRendered(function() {
         autoplaySpeed: 2000,
     });
 
+    // @ts-ignore
     $('.top-seller-slick-activation').slick({
         infinite: true,
         slidesToShow: 4,
@@ -406,6 +420,7 @@ Template.App_home.helpers({
 Template.App_home.events({
     "click .connectbtn"(event) {
       event.preventDefault();
+      // @ts-ignore
       $('#connectWalletModal').modal('show');
     },
 });

@@ -24,21 +24,39 @@
     <!-- start product details area -->
     <div class="product-details-area rn-section-gapTop">
         <div class="container">
-            <div class="row g-1">
+            <div class="row g-5">
                 <!-- product image area -->
                 <div class="col-lg-5 col-md-12 col-sm-12">
-                    <div class="product-tab-wrapper rbt-sticky-top-adjust">
-                        <div class="pd-tab-inner">
-                            <div class="tab-content rn-pd-content" id="v-pills-tabContent">
-                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                    <div class="rn-pd-thumbnail">
-                                        <img src="/images/portfolio/lg/portfolio-03.jpg" alt="Nft_Profile">
-                                    </div>
+                    <!-- start single product -->
+                    <div class="single-slide-product">
+                        <div class="product-style-one">
+                            <div class="card-thumbnail">
+                                <a><img src="{{#if item.token.image}}{{item.token.image}}{{else}}/images/logo/logo_contrast.png{{/if}}" alt="NFT_portfolio"></a>
+                            </div>
+                            <div class="product-share-wrapper">
+                                <div class="profile-share">
+                                    {{#if validateImage project.image}}
+                                        <a class="avatar" data-tooltip="{{item.name}}">
+                                        <img src="{{#if item.image}}{{item.image}}{{else}}/images/logo/logo_contrast.png{{/if}}" srcset="{{#if item.image}}{{item.image}}{{else}}/images/logo/logo_contrast.png{{/if}}">
+                                    </a>
+                                    {{else}}
+                                        <a class="avatar svg-link-wrapper" data-tooltip="{{item.name}}">
+                                        <div class="svg-object-container">
+                                            <object class="svg-object" type="image/svg+xml" data="{{item.image}}"></object>
+                                        </div>
+                                    </a>
+                                    {{/if}}
+                                    <a class="more-author-text" >{{item.name}}</a>
                                 </div>
                             </div>
-
+                            <div class="bid-react-area">
+                                <div class="react-area">
+                                    <span class="number">#{{item.token.tokenId}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- end single product -->
                 </div>
                 <!-- product image area end -->
 
@@ -47,9 +65,9 @@
                         <div class="row">
                             <div class="col-lg-9">
                                 <div class="collection-single-wized">
-                                    <label for="name" class="title">Principal</label>
+                                    <label for="principal" class="title">Principal</label>
                                     <div class="create-collection-input">
-                                        <input id="name" class="name" type="number" required>
+                                        <input id="principal" class="name" required>
                                     </div>
                                 </div>
                             </div>
@@ -69,32 +87,31 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="collection-single-wized">
-                                    <label for="name" class="title">Repay</label>
+                                    <label for="repay" class="title">Repay</label>
                                     <div class="create-collection-input">
-                                        <input id="name" class="name" type="number" required>
+                                        <input id="repay" class="name" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="collection-single-wized">
-                                    <label for="name" class="title">Days</label>
+                                    <label for="days" class="title">Days</label>
                                     <div class="create-collection-input">
-                                        <input id="name" class="name" type="number" required>
+                                        <input id="days" class="name" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="collection-single-wized">
-                                    <label for="name" class="title">APR (%)</label>
+                                    <label for="apr" class="title">APR (%)</label>
                                     <div class="create-collection-input">
-                                        <input id="name" class="name" type="number" required>
+                                        <input id="apr" class="name" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="button-wrapper">
-                                    <!-- <a href="#" class="btn btn-primary btn-large mr-30" data-bs-toggle="modal" data-bs-target="#collectionModal">Preview</a> -->
-                                    <a href="/borrow" class="btn btn-primary-alta btn-large">Create terms</a>
+                                    <a id="create" class="btn btn-primary-alta btn-large">Create terms</a>
                                 </div>
                             </div>
                         </div>

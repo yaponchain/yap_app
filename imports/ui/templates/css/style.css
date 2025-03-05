@@ -18018,7 +18018,7 @@ button .small-image {
 .product-style-one .card-thumbnail a img {
   border-radius: 5px;
   object-fit: contain;
-  width: 248px;
+  width: 100%;
   height: auto;
   transition: 0.5s;
 }

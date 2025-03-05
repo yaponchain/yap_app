@@ -138,10 +138,10 @@ Template.header.onDestroyed(function() {});
 Template.header.helpers({
     availableWallets() {
         return detectWallets();
-      },
-      disabled() {
-        return this.available ? "" : "disabled";
-      },
+    },
+    disabled() {
+    return this.available ? "" : "disabled";
+    },
 });
 
 Template.header.events({
@@ -149,7 +149,6 @@ Template.header.events({
     const walletName = event.currentTarget.dataset.wallet;
     connectWallet(walletName).then((result) => {
       if (result) {
-        console.log("Conectado:", result.address);
         $('#connectWalletModal').modal('hide');
       }
     });
