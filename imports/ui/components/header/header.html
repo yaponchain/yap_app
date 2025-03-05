@@ -200,11 +200,19 @@
                     <h5 class="modal-title">Connect Wallet</h5>
                 </div>
                 <div class="modal-body">
+                    {{#if availableWallets}}
                     <ul class="social-share-default">
                         {{#each availableWallets}}
                         <li class="wallet-button" data-wallet="{{name}}"><a href="#" data-wallet="{{name}}" {{disabled}}><img src="{{logo}}" alt="{{name}} Logo" class="wallet-logo me-2" /> {{name}}</a></li>
                         {{/each}}
                     </ul>
+                    {{else}}
+                    <div class="col-12">
+                        <div class="text-center color-primary" role="">
+                            No wallets found, unlock your extension or install a EVM wallet extension.
+                        </div>
+                    </div>
+                    {{/if}}
                 </div>
             </div>
         </div>

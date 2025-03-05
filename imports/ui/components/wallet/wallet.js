@@ -7,7 +7,7 @@ import "./wallet.html";
 Template.wallet.onCreated(function () {
   // @ts-ignore
   const ethProvider = window.ethereum || window.backpack || window.haha;
-  ethProvider.on("accountsChanged", (accounts) => {
+  ethProvider?.on("accountsChanged", (accounts) => {
     if (accounts.length > 0) {
       Session.set("wallet", accounts[0]);
       sessionStorage.setItem("wallet", accounts[0]);
@@ -20,7 +20,7 @@ Template.wallet.onCreated(function () {
       Session.set("provider", null);
     }
   });
-  ethProvider.on("chainChanged", () => window.location.reload());
+  ethProvider?.on("chainChanged", () => window.location.reload());
 });
 
 Template.wallet.helpers({

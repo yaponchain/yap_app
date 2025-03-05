@@ -24,6 +24,7 @@
     <div class="rn-live-bidding-area rn-section-gapTop">
         <div class="container">
             <div class="row g-5 mt_dec--30">
+            {{#if list.items}}
                 {{#each project in list.items}}
                     {{#each item in project.items}}
                         <!-- start single product -->
@@ -65,6 +66,13 @@
                         <!-- end single product -->
                     {{/each}}
                 {{/each}}
+                {{else}}
+                <div class="col-12">
+                    <div class="text-center color-primary" role="">
+                        No items found
+                    </div>
+                </div>
+                {{/if}}
             </div>
             <div class="row mt--80">
                 <div class="col-12">
