@@ -39,8 +39,17 @@ Template.App_borrow.onCreated(function () {
 });
 
 Template.App_borrow.onRendered(function () {
-  const terms = Terms.find().fetch();
+
+  let terms = Terms.find().fetch();
   Session.set("terms", terms);
+  const timeout = Meteor.setTimeout(() => {
+    if(terms.length) {
+      Meteor.clearTimeout(timeout);
+    }else{
+      terms = Terms.find().fetch();
+      Session.set("terms", terms);
+    }
+  }, 1000);
 });
 
 Template.App_borrow.onDestroyed(function () {});
