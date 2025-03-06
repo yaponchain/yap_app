@@ -3,9 +3,13 @@ import axios from 'axios';
 
 Meteor.methods({
     async 'monad.nfts'(wallet) {
-        const base_url = Meteor.settings.monad.url;
+        if (!process?.env?.MONAD_URL) {
+            throw new Meteor.Error('.env problem', 'MONAD_URL not provided');
+          }
+
+        const base_url = process.env.MONAD_URL;
         const headers = {
-            "x-api-key": Meteor.settings.monad.key,
+            "x-api-key": process.env.MONAD_KEY,
             "accept": "application/json"
         }
 

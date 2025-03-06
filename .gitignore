@@ -3,4 +3,5 @@ node_modules/
 jsconfig.json
 package-lock.json
 settings.json
+.env
 .DS_Store
