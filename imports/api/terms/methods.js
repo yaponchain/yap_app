@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { Terms } from "./terms.js";
 
 Meteor.methods({
-  async "terms.create"(wallet, terms, project) {
+  async "terms.create"(wallet, terms, project, proposal) {
     if (!wallet || !terms || !project) {
       throw new Meteor.Error(
         "terms-problem",
@@ -14,6 +14,7 @@ Meteor.methods({
       wallet: wallet,
       term: terms,
       project: project,
+      proposal: proposal,
       status: "pending",
       createdAt: new Date(),
     });
