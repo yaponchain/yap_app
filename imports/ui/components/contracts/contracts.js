@@ -4,21 +4,21 @@ import ProposalManagerABI from "./abis/ProposalManager.json";
 import NFTVerifierABI from "./abis/NFTVerifier.json";
 import IERC721ABI from "./abis/IERC721.json";
 
-const provider = new ethers.BrowserProvider(window.ethereum);
+const provider = window.ethereum ? new ethers.BrowserProvider(window.ethereum) : null;
 
 const yapLendCore = new ethers.Contract(
-  "0x5C9057C403c49867004D3C91Cea44A892DAc8009",
-  YapLendCoreABI,
+  YapLendCoreABI.address,
+  YapLendCoreABI.abi,
   provider
 );
 const proposalManager = new ethers.Contract(
-  "0xBDd6e00FaDD9E57EE72dd91DE92aC2131CE1fe3C",
-  ProposalManagerABI,
+  ProposalManagerABI.address,
+  ProposalManagerABI.abi,
   provider
 );
 const nftVerifier = new ethers.Contract(
-  "0x54E466e0932E918b4d390EE66e7371ec4eBB92cd",
-  NFTVerifierABI,
+  NFTVerifierABI.address,
+  NFTVerifierABI.abi,
   provider
 );
 

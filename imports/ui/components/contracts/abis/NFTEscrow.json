@@ -1,6 +1,6 @@
 {
-  "contractName": "CollateralManager",
-  "address": "0x3AA54e27970fd6E4811aF0CeA22d867e64e572d6",
+  "contractName": "NFTEscrow",
+  "address": "0x361C5a0cef84d05a3EE88e14Fe30446a2697358e",
   "abi": [
     {
       "inputs": [],
@@ -16,11 +16,6 @@
         }
       ],
       "name": "AddressEmptyCode",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "ERC1167FailedCreateClone",
       "type": "error"
     },
     {
@@ -111,52 +106,15 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
+          "indexed": false,
           "internalType": "address",
-          "name": "nftAddress",
+          "name": "benefitAddress",
           "type": "address"
         },
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "escrowAddress",
-          "type": "address"
-        }
-      ],
-      "name": "CollateralAdded",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokenId",
+          "name": "amount",
           "type": "uint256"
         },
         {
@@ -166,26 +124,20 @@
           "type": "address"
         }
       ],
-      "name": "CollateralRemoved",
+      "name": "BenefitsClaimed",
       "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
           "indexed": false,
-          "internalType": "bool",
-          "name": "allowed",
-          "type": "bool"
+          "internalType": "address",
+          "name": "delegate",
+          "type": "address"
         }
       ],
-      "name": "CollectionAllowListUpdated",
+      "name": "DelegateAdded",
       "type": "event"
     },
     {
@@ -194,54 +146,68 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "escrowAddress",
+          "name": "delegate",
+          "type": "address"
+        }
+      ],
+      "name": "DelegateRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "partnerProject",
           "type": "address"
         },
         {
           "indexed": false,
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "DelegationInterfaceAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
           "internalType": "address",
-          "name": "nftAddress",
+          "name": "partnerProject",
+          "type": "address"
+        }
+      ],
+      "name": "DelegationInterfaceRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "tokenAddress",
           "type": "address"
         },
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "tokenId",
+          "name": "amount",
           "type": "uint256"
         },
         {
           "indexed": false,
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        }
-      ],
-      "name": "EscrowCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
           "internalType": "address",
-          "name": "escrowAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "borrower",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "lender",
+          "name": "recipient",
           "type": "address"
         }
       ],
-      "name": "EscrowInitialized",
+      "name": "ERC20Withdrawn",
       "type": "event"
     },
     {
@@ -261,6 +227,56 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": false,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        }
+      ],
+      "name": "NFTDeposited",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        }
+      ],
+      "name": "NFTReleased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": true,
           "internalType": "address",
           "name": "previousOwner",
@@ -274,25 +290,6 @@
         }
       ],
       "name": "OwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "partnerProject",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "bytes4",
-          "name": "interfaceId",
-          "type": "bytes4"
-        }
-      ],
-      "name": "PartnerInterfaceRegistered",
       "type": "event"
     },
     {
@@ -350,50 +347,24 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        },
-        {
           "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "borrower",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "lender",
+          "name": "delegate",
           "type": "address"
         }
       ],
-      "name": "addCollateral",
+      "name": "addDelegate",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [
+      "inputs": [],
+      "name": "borrower",
+      "outputs": [
         {
           "internalType": "address",
           "name": "",
           "type": "address"
-        }
-      ],
-      "name": "allowedCollections",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
         }
       ],
       "stateMutability": "view",
@@ -401,82 +372,6 @@
     },
     {
       "inputs": [
-        {
-          "internalType": "address",
-          "name": "escrowAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "partnerProject",
-          "type": "address"
-        }
-      ],
-      "name": "applyPartnerInterface",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        }
-      ],
-      "name": "calculateTotalCollateralValue",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "checkNFTValue",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
         {
           "internalType": "address",
           "name": "benefitAddress",
@@ -500,39 +395,32 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "name": "collaterals",
+      "inputs": [],
+      "name": "collateralManager",
       "outputs": [
         {
           "internalType": "address",
-          "name": "nftAddress",
+          "name": "",
           "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bool",
-          "name": "active",
-          "type": "bool"
-        },
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
           "internalType": "address",
-          "name": "escrowAddress",
+          "name": "",
           "type": "address"
+        }
+      ],
+      "name": "delegates",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
         }
       ],
       "stateMutability": "view",
@@ -540,41 +428,16 @@
     },
     {
       "inputs": [],
-      "name": "escrowImplementation",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
+      "name": "depositNFT",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
         {
           "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "escrowToCollateralId",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "escrowAddress",
+          "name": "target",
           "type": "address"
         },
         {
@@ -583,7 +446,7 @@
           "type": "bytes"
         }
       ],
-      "name": "executeEscrowFunction",
+      "name": "executeDelegatedCall",
       "outputs": [
         {
           "internalType": "bool",
@@ -600,48 +463,18 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getEscrowAddress",
+      "inputs": [],
+      "name": "getEscrowedNFT",
       "outputs": [
         {
           "internalType": "address",
           "name": "",
           "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
+        },
         {
           "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        }
-      ],
-      "name": "getLoanEscrowAddresses",
-      "outputs": [
-        {
-          "internalType": "address[]",
           "name": "",
-          "type": "address[]"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -651,12 +484,32 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "priceOracleAddress",
+          "name": "_nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_loanId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_borrower",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "yapLendCoreAddress",
+          "name": "_lender",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_collateralManager",
           "type": "address"
         }
       ],
@@ -668,51 +521,151 @@
     {
       "inputs": [
         {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "isBeneficialOwner",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "delegate",
+          "type": "address"
+        }
+      ],
+      "name": "isDelegateFor",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "isDeposited",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "isOwnerOf",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "isReleased",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "lender",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "loanId",
+      "outputs": [
+        {
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "nftAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
         },
         {
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
         }
       ],
-      "name": "loanCollateralIds",
+      "name": "onERC721Received",
       "outputs": [
         {
-          "internalType": "bytes32",
+          "internalType": "bytes4",
           "name": "",
-          "type": "bytes32"
+          "type": "bytes4"
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "loanIdCounter",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "minimumCollateralRatio",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -801,22 +754,12 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        },
-        {
           "internalType": "address",
-          "name": "nftAddress",
+          "name": "recipient",
           "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
         }
       ],
-      "name": "removeCollateral",
+      "name": "releaseNFT",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -824,27 +767,25 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "loanId",
-          "type": "uint256"
-        },
-        {
           "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "recipient",
+          "name": "delegate",
           "type": "address"
         }
       ],
-      "name": "removeCollateral",
+      "name": "removeDelegate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "partnerProject",
+          "type": "address"
+        }
+      ],
+      "name": "removePartnerInterface",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -859,58 +800,33 @@
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
         {
           "internalType": "bool",
-          "name": "allowed",
+          "name": "",
           "type": "bool"
         }
       ],
-      "name": "setCollectionAllowance",
-      "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [
+      "inputs": [],
+      "name": "tokenId",
+      "outputs": [
         {
           "internalType": "uint256",
-          "name": "newRatio",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "setMinimumCollateralRatio",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newPriceOracle",
-          "type": "address"
-        }
-      ],
-      "name": "setPriceOracle",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "yapLendCoreAddress",
-          "type": "address"
-        }
-      ],
-      "name": "setYapLendCore",
-      "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -954,17 +870,12 @@
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
+          "internalType": "bytes",
+          "name": "verificationData",
+          "type": "bytes"
         }
       ],
-      "name": "validateCollateral",
+      "name": "verifyOwnership",
       "outputs": [
         {
           "internalType": "bool",
@@ -973,6 +884,24 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawERC20",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     }
   ]
