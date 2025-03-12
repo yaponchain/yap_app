@@ -14,9 +14,6 @@ import '../../components/footer/footer.js';
 import './home.html';
 
 Template.App_home.onCreated(function() {
-    Meteor.subscribe("terms.newest");
-    Meteor.subscribe("terms.latest");
-    Meteor.subscribe("collections.top");
 });
 
 Template.App_home.onRendered(function() {
@@ -44,52 +41,6 @@ Template.App_home.onRendered(function() {
         gyroscopeMinAngleY: -45,
         gyroscopeMaxAngleY: 45
     });
-
-    Meteor.setTimeout(() => {
-        // @ts-ignore
-    $('.slick-activation-03').slick({
-        infinite: true,
-        slidesToShow: 5,
-        slidesToScroll: 2,
-        dots: false,
-        arrows: true,
-        cssEase: 'linear',
-        adaptiveHeight: true,
-        prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-arrow-left"></i></button>',
-        nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>',
-        responsive: [{
-                breakpoint: 1399,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 576,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    dots: true,
-                    arrows: false,
-                }
-            }
-        ]
-    });
-    }, 1000);
 });
 
 Template.App_home.helpers({
@@ -108,13 +59,13 @@ Template.App_home.helpers({
         return terms//?.length >= 5 ? terms : [];
     },
     find_latest_terms() {
-        //let terms = find_terms({status:"active"}, {sort: {createdAt: -1}, limit: 10});
-        let terms = find_terms({},{});
+        let terms = find_terms({status:"loaned"}, {sort: {createdAt: -1}, limit: 5});
+        //let terms = find_terms({},{});
         Session.set("latest_terms", terms);
     },
     latest_terms() {
         const terms = Session.get("latest_terms");
-        return terms?.length >= 5 ? terms : [];
+        return terms//?.length >= 5 ? terms : [];
     },
     find_top_collections() {
         let collections = Collections.find({},{limit: 4}).fetch();

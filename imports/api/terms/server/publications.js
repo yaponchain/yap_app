@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Terms } from '../terms.js';
 
-Meteor.publish('terms.all', function (wallet) {
-  const terms = Terms.find({wallet: wallet});
+Meteor.publish('terms.owner', function (wallet) {
+  const terms = Terms.find({owner: wallet});
   
   return terms;
 });
@@ -14,7 +14,7 @@ Meteor.publish('terms.newest', function () {
 });
 
 Meteor.publish('terms.latest', function () {
-  const terms = Terms.find({status:"active"}, {sort: {createdAt: -1}, limit: 10});
+  const terms = Terms.find({status:"loaned"}, {sort: {createdAt: -1}, limit: 10});
   
   return terms;
 });

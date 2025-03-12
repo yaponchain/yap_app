@@ -64,10 +64,10 @@
                                 <a class="more-author-text">{{project.name}}</a>
                             </div>
                         </div>
-                        <a><span class="product-name">{{term.days}} Days</span></a>
-                        <span class="latest-bid">APR {{term.apr}}%</span>
+                        <a><span class="product-name">{{proposals.[0].term.days}} Days</span></a>
+                        <span class="latest-bid">APR {{proposals.[0].term.apr}}%</span>
                         <div class="bid-react-area">
-                            <div class="last-bid">{{term.principal}} {{term.token}}</div>
+                            <div class="last-bid">{{proposals.[0].term.principal}} {{proposals.[0].term.token}}</div>
                             <div class="react-area">
                                 <span class="number">#{{project.token.tokenId}}</span>
                             </div>
@@ -93,44 +93,40 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="banner-one-slick slick-activation-03 slick-arrow-style-one rn-slick-dot-style slick-gutter-15">
-                        {{#each latest_terms}}
-                        <!-- start single product -->
-                        <div class="single-slide-product terms" data-contract="{{project.contractAddress}}" data-token="{{project.token.tokenId}}" data-term="{{_id}}">
-                            <div class="product-style-one">
-                                <div class="card-thumbnail">
-                                    <a>
-                                        {{#if project.token.image}}
-                                        <img src="{{project.token.image}}" alt="{{project.name}}">
-                                        {{else}}
-                                        <img src="/images/logo/logo_contrast.png">
-                                        {{/if}}
-                                    </a>
-                                </div>
-                                <div class="product-share-wrapper">
-                                    <div class="profile-share">
-                                        <a class="avatar" data-tooltip="{{project.name}}"><img src="{{project.image}}" alt="{{project.name}}"></a>
-                                        <a class="more-author-text" >{{project.name}}</a>
-                                    </div>
-                                </div>
-                                <a>
-                                    <span class="product-name">{{term.days}} days</span>
+            <div class="row g-5">
+                {{#each latest_terms}}
+                <!-- start single product -->
+                <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 terms" data-contract="{{project.contractAddress}}" data-token="{{project.token.tokenId}}" data-term="{{_id}}">
+                    <div class="product-style-one no-overlay">
+                        <div class="card-thumbnail">
+                            <a>
+                                {{#if project.token.image}}
+                                <img src="{{project.token.image}}" alt="{{project.name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
+                            </a>
+                        </div>
+                        <div class="product-share-wrapper">
+                            <div class="profile-share">
+                                <a class="avatar" data-tooltip="{{project.name}}">
+                                    <img src="{{project.image}}" alt="{{project.name}}">
                                 </a>
-                                <span class="latest-bid">APR {{term.apr}}%</span>
-                                <div class="bid-react-area">
-                                    <div class="last-bid">{{term.principal}} {{term.token}}</div>
-                                    <div class="react-area">
-                                        <span class="number">#{{project.token.tokenId}}</span>
-                                    </div>
-                                </div>
+                                <a class="more-author-text">{{project.name}}</a>
                             </div>
                         </div>
-                        <!-- end single product -->
-                        {{/each}}
+                        <a><span class="product-name">{{proposals.[0].term.days}} Days</span></a>
+                        <span class="latest-bid">APR {{proposals.[0].term.apr}}%</span>
+                        <div class="bid-react-area">
+                            <div class="last-bid">{{proposals.[0].term.principal}} {{proposals.[0].term.token}}</div>
+                            <div class="react-area">
+                                <span class="number">#{{project.token.tokenId}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- end single product -->
+                {{/each}}
             </div>
         </div>
     </div>
@@ -159,25 +155,25 @@
                     <a class="rn-collection-inner-one">
                         <div class="collection-wrapper">
                             <div class="collection-big-thumbnail">
-                                {{#if token.images.[0]}}
-                                <img src="{{token.images.[0]}}" alt="{{name}}">
+                                {{#if token.images.[0].url}}
+                                <img src="{{token.images.[0].url}}" alt="{{name}}">
                                 {{else}}
                                 <img src="/images/logo/logo_contrast.png">
                                 {{/if}}
                             </div>
                             <div class="collenction-small-thumbnail">
-                                {{#if token.images.[1]}}
-                                <img src="{{token.images.[1]}}" alt="{{name}}">
+                                {{#if token.images.[1].url}}
+                                <img src="{{token.images.[1].url}}" alt="{{name}}">
                                 {{else}}
                                 <img src="/images/logo/logo_contrast.png">
                                 {{/if}}
-                                {{#if token.images.[2]}}
-                                <img src="{{token.images.[2]}}" alt="{{name}}">
+                                {{#if token.images.[2].url}}
+                                <img src="{{token.images.[2].url}}" alt="{{name}}">
                                 {{else}}
                                 <img src="/images/logo/logo_contrast.png">
                                 {{/if}}
-                                {{#if token.images.[3]}}
-                                <img src="{{token.images.[3]}}" alt="{{name}}">
+                                {{#if token.images.[3].url}}
+                                <img src="{{token.images.[3].url}}" alt="{{name}}">
                                 {{else}}
                                 <img src="/images/logo/logo_contrast.png">
                                 {{/if}}

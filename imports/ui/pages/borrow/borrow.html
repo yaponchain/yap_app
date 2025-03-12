@@ -120,10 +120,10 @@
                                 <tr {{!-- class="color-light" --}}>
                                     <td><span>{{t.project.name}}</span></td>
                                     <td><span>#{{t.project.token.tokenId}}</span></td>
-                                    <td><span class="color-green">{{t.term.principal}}</span></td>
-                                    <td><span>{{t.term.token}}</span></td>
-                                    <td><span>{{t.term.days}}</span></td>
-                                    <td><span>{{t.term.apr}}</span></td>
+                                    <td><span class="color-green">{{t.proposals.[0].term.principal}}</span></td>
+                                    <td><span>{{t.proposals.[0].term.token}}</span></td>
+                                    <td><span>{{t.proposals.[0].term.days}}</span></td>
+                                    <td><span>{{t.proposals.[0].term.apr}}</span></td>
                                     <td><span>{{normalize_date t.createdAt}}</span></td>
                                     <td><span class="color-danger">-</span></td>
                                 </tr>

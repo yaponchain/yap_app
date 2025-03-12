@@ -30,20 +30,20 @@ Template.App_borrow_list.onDestroyed(function () {
 Template.App_borrow_list.helpers({
   item() {
     const list = Session.get("list")?.items;
-    const project = list.find(
+    const project = list?.find(
       // @ts-ignore
-      (item) => item.contractAddress === FlowRouter.getParam("contract")
+      (item) => item?.contractAddress === FlowRouter.getParam("contract")
     );
-    const token = project?.items.find(
+    const token = project?.items?.find(
       // @ts-ignore
-      (item) => item.tokenId === FlowRouter.getParam("token")
+      (item) => item?.tokenId === FlowRouter.getParam("token")
     );
     const item = {
-      contractAddress: project.contractAddress,
-      verified: project.verified,
-      name: project.name,
-      image: project.image,
-      ercStandard: project.ercStandard,
+      contractAddress: project?.contractAddress,
+      verified: project?.verified,
+      name: project?.name,
+      image: project?.image,
+      ercStandard: project?.ercStandard,
       token: { ...token },
     };
 
@@ -121,7 +121,7 @@ Template.App_borrow_list.events({
           wallet,
           { principal, token, apr, repay, days},
           item,
-          {id: result?.proposalId},
+          result?.proposalId,
           (error, result) => {
             if (error) {
               Session.set("loading", null);

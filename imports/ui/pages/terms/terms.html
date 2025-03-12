@@ -1,0 +1,294 @@
+<template name="App_terms">
+    {{> header}}
+    <!-- start page title area -->
+    <div class="rn-breadcrumb-inner ptb--30">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h5 class="title text-center text-md-start">Terms Details</h5>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-list">
+                        <li class="item"><a href="/">Home</a></li>
+                        <li class="separator"><i class="feather-chevron-right"></i></li>
+                        <li class="item current">Terms Details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title area -->
+
+    <!-- start product details area -->
+    <div class="product-details-area rn-section-gapTop">
+        <div class="container">
+            <div class="row g-5">
+                <!-- product image area -->
+
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="product-tab-wrapper rbt-sticky-top-adjust">
+                        <div class="">
+                            <div class="tab-content rn-pd-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div class="rn-pd-thumbnail">
+                                        {{#if detail.project.token.image}}
+                                        <img src="{{detail.project.token.image}}" alt="{{project.name}}">
+                                        {{else}}
+                                        <img src="/images/logo/logo_contrast.png">
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- product image area end -->
+
+                <div class="col-lg-6 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div class="rn-pd-content-area">
+                        <div class="pd-title-area">
+                            <h4 class="title">{{detail.project.name}} | #{{detail.project.token.tokenId}}</h4>
+                        </div>
+                        <div class="rn-bid-details">
+                            <div class="tab-wrapper-one">
+                                <nav class="tab-button-one">
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Desired Terms</button>
+                                        {{#unless validateWallet}}
+                                        {{#unless validateLoan}}
+                                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Make an Offer</button>
+                                        {{/unless}}
+                                        {{/unless}}
+                                    </div>
+                                </nav>
+                                <div class="tab-content rn-bid-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <!-- single -->
+                                        <div class="rn-pd-sm-property-wrapper">
+                                            <h6 class="pd-property-title">
+                                                Details
+                                            </h6>
+                                            <div class="property-wrapper">
+                                                <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-body type">Principal</span>
+                                                    <span class="color-white value">{{detail.proposals.[0].term.principal}} {{detail.proposals.[0].term.token}}</span>
+                                                </div>
+                                                <!-- single property End -->
+                                                <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-body type">Repayment</span>
+                                                    <span class="color-white value">{{detail.proposals.[0].term.repay}} {{detail.proposals.[0].term.token}}</span>
+                                                </div>
+                                                <!-- single property End -->
+                                                <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-body type">Duration</span>
+                                                    <span class="color-white value">{{detail.proposals.[0].term.days}} days</span>
+                                                </div>
+                                                <!-- single property End -->
+                                                <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-body type">APR</span>
+                                                    <span class="color-white value">{{detail.proposals.[0].term.apr}}%</span>
+                                                </div>
+                                                <!-- single property End -->
+                                                {{#if validateLoan}}
+                                                 <!-- single property -->
+                                                <div class="pd-property-inner">
+                                                    <span class="color-red type">Loan Due</span>
+                                                    <span class="color-white value">{{validateLoan}}</span>
+                                                </div>
+                                                <!-- single property End -->
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                        <!-- single -->
+                                        {{#if validateWallet}}
+                                            {{#if validateLoan}}
+                                            <div class="place-bet-area mt-3">
+                                                <button id="repay" type="button" class="btn btn-primary-alta">
+                                                    {{#if validateLoading}}
+                                                    <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                    {{else}}
+                                                    Repay loan
+                                                    {{/if}}
+                                                </button>
+                                            </div>
+                                            {{/if}}
+                                        {{else}}
+                                            {{#unless validateLoan}}
+                                            <div class="place-bet-area mt-3">
+                                                <button id="accept" type="button" class="btn btn-primary-alta">
+                                                    {{#if validateLoading}}
+                                                    <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                    {{else}}
+                                                    Accept offer
+                                                    {{/if}}
+                                                </button>
+                                            </div>
+                                            {{/unless}}
+                                        {{/if}}
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                        <div class="place-bet-area mt-3">
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <div class="collection-single-wized">
+                                                        <label for="principal" class="title">Principal</label>
+                                                        <div class="create-collection-input">
+                                                            <input id="principal" class="name" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="collection-single-wized">
+                                                        <label class="title">Token</label>
+                                                        <div class="create-collection-input">
+                                                            <div class="nice-select mb--30" tabindex="0">
+                                                                <span class="current">MON</span>
+                                                                <ul class="list">
+                                                                    <li data-value="MON" data-display="MON" class="option selected focus">MON</li>
+                                                                    {{!-- <li data-value="USDC" data-display="USDC" class="option">USDC</li> --}}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="collection-single-wized">
+                                                        <label for="repay" class="title">Repay</label>
+                                                        <div class="create-collection-input">
+                                                            <input id="repay" class="name" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="collection-single-wized">
+                                                        <label for="days" class="title">Days</label>
+                                                        <div class="create-collection-input">
+                                                            <input id="days" class="name" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="collection-single-wized">
+                                                        <label for="apr" class="title">APR (%)</label>
+                                                        <div class="create-collection-input">
+                                                            <input id="apr" class="name" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="button-wrapper">
+                                                        <a id="create" class="btn btn-primary-alta btn-large">
+                                                            {{#if validateLoading}}
+                                                            <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                            {{else}}
+                                                            Create offer
+                                                            {{/if}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End product details area -->
+    {{#unless validateLoan}}
+    <!-- live Bidding area start -->
+    <div class="rn-live-bidding-area rn-section-gapTop">
+        <div class="container">
+            <div class="row mt--10">
+                <div class="col-12">
+                    <!-- start Table Title -->
+                    <div class="table-title-area d-flex">
+                        <i data-feather="inbox"></i>
+                        <h3>Offers</h3>
+                    </div>
+                    <!-- End Table Title -->
+
+                    <!-- table area Start -->
+                    <div class="box-table table-responsive">
+                        <table class="table upcoming-projects">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span>Principal</span>
+                                    </th>
+                                    <th>
+                                        <span>Repayment</span>
+                                    </th>
+                                    <th>
+                                        <span>Duration</span>
+                                    </th>
+                                    <th>
+                                        <span>APR</span>
+                                    </th>
+                                    <th>
+                                        <span>Date</span>
+                                    </th>
+                                    <th>
+                                        <span>Action</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               {{#each offer in proposals}}
+                               <tr {{!-- class="color-light" --}}>
+                                    <td><span class="color-green">{{offer.term.principal}} {{offer.term.token}}</span></td>
+                                    <td><span>{{offer.term.repay}} {{offer.term.token}}</span></td>
+                                    <td><span>{{offer.term.days}} days</span></td>
+                                    <td><span>{{offer.term.apr}}%</span></td>
+                                    <td><span>{{normalize_date offer.createdAt}}</span></td>
+                                    <td>
+                                        <span>
+                                            {{#if validateWallet}}
+                                            {{#if validateCounterOffer offer}}
+                                            <div class="button-group">
+                                                <button id="counter" class="btn btn-primary-alta btn-small mr--10" data-id="{{offer.id}}" data-wallet="{{offer.wallet}}">
+                                                    {{#if validateLoading}}
+                                                    <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                    {{else}}
+                                                    Accept
+                                                    {{/if}}
+                                                </button>
+                                                <button id="reject" class="btn btn-primary btn-small" data-id="{{offer.id}}" data-wallet="{{offer.wallet}}">
+                                                    {{#if validateLoading}}
+                                                    <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                    {{else}}
+                                                    Reject
+                                                    {{/if}}
+                                                </button>
+                                            </div>
+                                            {{else}}
+                                            -
+                                            {{/if}}
+                                            {{else}}
+                                            -
+                                            {{/if}}
+                                        </span>
+                                    </td>
+                                </tr>
+                               {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- table End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- live Bidding area End -->
+    {{/unless}}
+
+    {{> footer}}
+</template>

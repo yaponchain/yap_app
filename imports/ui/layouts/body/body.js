@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+
 import './body.html';
 
 
@@ -36,6 +39,9 @@ import '../../templates/js/main.js';
 
 Template.App_body.onCreated(function() {
     $('body').addClass('template-color-1 with-particles');
+    Meteor.subscribe("terms.newest");
+    Meteor.subscribe("terms.latest");
+    Meteor.subscribe("collections.top");
 });
 
 Template.App_body.onRendered(function() {

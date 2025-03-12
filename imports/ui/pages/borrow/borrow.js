@@ -13,7 +13,7 @@ import { Terms } from "/imports/api/terms/terms";
 Template.App_borrow.onCreated(function () {
   const wallet = sessionStorage.getItem("wallet");
 
-  Meteor.subscribe("terms.all", wallet);
+  Meteor.subscribe("terms.owner", wallet);
 
   const list = sessionStorage.getItem("list")
     ? JSON.parse(sessionStorage.getItem("list"))
@@ -21,7 +21,7 @@ Template.App_borrow.onCreated(function () {
   const time = 5 * 60 * 1000;
 
   if (
-    ((!list || list.wallet != wallet) && wallet) ||
+    ((!list || list?.owner != wallet) && wallet) ||
     (Date.now() - parseInt(list?.time, 10) > time && wallet)
   ) {
     console.log("List ====> LIST UPDATED");
@@ -30,14 +30,14 @@ Template.App_borrow.onCreated(function () {
         console.log("Error ====>", error);
       } else if (result?.length) {
         Session.set("list", {
-          wallet: wallet,
+          owner: wallet,
           items: result,
           time: Date.now(),
         });
         sessionStorage.setItem(
           "list",
           JSON.stringify({
-            wallet: wallet,
+            owner: wallet,
             items: result,
             time: Date.now(),
           })
@@ -130,5 +130,5 @@ Template.App_borrow.events({
 
 const find_terms = () => {
   const wallet = sessionStorage.getItem("wallet");
-  return Terms.find({wallet:wallet}).fetch();
+  return Terms.find({owner:wallet}).fetch();
 };
