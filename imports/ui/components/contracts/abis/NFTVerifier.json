@@ -1,6 +1,6 @@
 {
   "contractName": "NFTVerifier",
-  "address": "0xB0E4609BEBE2553a94A27E7feEc6192678586a6d",
+  "address": "0x161B38a3e6a4E89222E8fDB2B97C302FBd6Aa53E",
   "abi": [
     {
       "inputs": [],
@@ -255,6 +255,35 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkOwnership",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "collateralManager",
       "outputs": [
@@ -480,7 +509,7 @@
           "type": "bool"
         }
       ],
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
