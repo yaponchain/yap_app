@@ -66,7 +66,7 @@ Template.App_borrow.helpers({
 
     let filteredItems = { items: [] };
     if (list?.items?.length) {
-      list.items.map((item) => {
+      list?.items?.map((item) => {
         let project = {
           contractAddress: item.contractAddress,
           ercStandard: item.ercStandard,
@@ -76,9 +76,9 @@ Template.App_borrow.helpers({
           items: [],
         };
 
-        item.items.map((token) => {
+        item?.items?.map((token) => {
           let term = false;
-          terms.map((t) => {
+          terms?.map((t) => {
             if (
               t.project.token.contractAddress === token.contractAddress &&
               t.project.token.tokenId === token.tokenId &&
@@ -129,5 +129,6 @@ Template.App_borrow.events({
 });
 
 const find_terms = () => {
-  return Terms.find().fetch();
+  const wallet = sessionStorage.getItem("wallet");
+  return Terms.find({wallet:wallet}).fetch();
 };
