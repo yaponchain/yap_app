@@ -27,14 +27,16 @@
 
                     <div class="setting-option header-btn rbt-site-header" id="rbt-site-header">
                         {{> wallet}}
-                        {{!-- <div class="icon-box">
-                            <a id="connectbtn" class="btn btn-primary-alta btn-small" href="connect.html">Connect Wallet</a>
-                        </div> --}}
                     </div>
 
                     <div class="setting-option rn-icon-list notification-badge">
                         <div class="icon-box">
-                            <a href="activity.html"><i class="feather-bell"></i><span class="badge">6</span></a>
+                            {{#if connectedAddress}}
+                            <a href="#">
+                                <i class="feather-bell"></i>
+                                {{!-- <span class="badge">6</span> --}}
+                            </a>
+                            {{/if}}
                         </div>
                     </div>
                     <div class="setting-option mobile-menu-bar d-block d-xl-none">
@@ -55,8 +57,8 @@
         <div class="inner">
             <div class="header-top">
                 <div class="logo logo-custom-css">
-                    <a class="logo-light" href="index.html"><img src="assets/images/logo/logo-white.png" alt="nft-logo"></a>
-                    <a class="logo-dark" href="index.html"><img src="assets/images/logo/logo-dark.png" alt="nft-logo"></a>
+                    <a class="logo-light" href="index.html"><img src="/images/logo/logo-white.png" alt="nft-logo"></a>
+                    <a class="logo-dark" href="index.html"><img src="/images/logo/logo-dark.png" alt="nft-logo"></a>
                 </div>
                 <div class="close-menu">
                     <button class="close-button">
@@ -124,7 +126,7 @@
                                             <li>
                                                 <a href="upload-variants.html">Upload Type<i data-feather="layers"></i></a>
                                             </li>
-                                            <li><a href="activity.html">Activity<i data-feather="activity"></i></a></li>
+                                            <li><a href="#">Activity<i data-feather="activity"></i></a></li>
                                             <li>
                                                 <a href="creator.html">Creators<i data-feather="users"></i></a>
                                             </li>

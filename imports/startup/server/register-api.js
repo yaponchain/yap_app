@@ -4,3 +4,5 @@ import '../../api/monad/methods.js';
 
 import '../../api/terms/methods.js';
 import '../../api/terms/server/publications.js';
+
+import '../../api/collections/server/publications.js';

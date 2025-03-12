@@ -6,3 +6,15 @@ Meteor.publish('terms.all', function (wallet) {
   
   return terms;
 });
+
+Meteor.publish('terms.newest', function () {
+  const terms = Terms.find({status:"pending"}, {sort: {createdAt: -1}, limit: 5});
+  
+  return terms;
+});
+
+Meteor.publish('terms.latest', function () {
+  const terms = Terms.find({status:"active"}, {sort: {createdAt: -1}, limit: 10});
+  
+  return terms;
+});

@@ -2,7 +2,7 @@
     {{> header}}
 
     <!-- start banner area -->
-    <div class="slider-style-5 rn-section-gapTop">
+    <div class="slider-style-5 rn-section-gapTop" {{find_newest_terms}} {{find_latest_terms}} {{find_top_collections}}>
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 order-2 order-lg-1 mt_md--30 mt_sm--30">
@@ -18,94 +18,9 @@
                         {{/unless}}
                     </div>
                 </div>
-                <div class="col-lg-6 order-1 order-lg-2">
-                    <div class="row g-5">
-                        <div class="col-lg-6 col-md-6">
-                            <!-- start single product -->
-                            <div class="single-slide-product">
-                                <div class="product-style-one">
-                                    <div class="card-thumbnail">
-                                        <a href="product-details.html"><img src="images/portfolio/portfolio-01.jpg" alt="NFT_portfolio"></a>
-                                        <div class="countdown" data-date="2025-02-25">
-                                            <div class="countdown-container days">
-                                                <span class="countdown-value">87</span>
-                                                <span class="countdown-heading">D's</span>
-                                            </div>
-                                            <div class="countdown-container hours">
-                                                <span class="countdown-value">23</span>
-                                                <span class="countdown-heading">H's</span>
-                                            </div>
-                                            <div class="countdown-container minutes">
-                                                <span class="countdown-value">38</span>
-                                                <span class="countdown-heading">Min's</span>
-                                            </div>
-                                            <div class="countdown-container seconds">
-                                                <span class="countdown-value">27</span>
-                                                <span class="countdown-heading">Sec</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-share-wrapper">
-                                        <div class="profile-share">
-                                            <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                            <a class="more-author-text" >Project name</a>
-                                        </div>
-                                    </div>
-                                    <a href="product-details.html"><span class="product-name">35 days</span></a>
-                                    <span class="latest-bid">APR 35%</span>
-                                    <div class="bid-react-area">
-                                        <div class="last-bid">4.20MON</div>
-                                        <div class="react-area">
-                                            <span class="number">#12345</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end single product -->
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <!-- start single product -->
-                            <div class="single-slide-product">
-                                <div class="product-style-one">
-                                    <div class="card-thumbnail">
-                                        <a href="product-details.html"><img src="images/portfolio/portfolio-09.jpg" alt="NFT_portfolio"></a>
-                                        <div class="countdown" data-date="2025-02-27">
-                                            <div class="countdown-container days">
-                                                <span class="countdown-value">87</span>
-                                                <span class="countdown-heading">D's</span>
-                                            </div>
-                                            <div class="countdown-container hours">
-                                                <span class="countdown-value">23</span>
-                                                <span class="countdown-heading">H's</span>
-                                            </div>
-                                            <div class="countdown-container minutes">
-                                                <span class="countdown-value">38</span>
-                                                <span class="countdown-heading">Min's</span>
-                                            </div>
-                                            <div class="countdown-container seconds">
-                                                <span class="countdown-value">27</span>
-                                                <span class="countdown-heading">Sec</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-share-wrapper">
-                                        <div class="profile-share">
-                                            <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-1.png" alt="Nft_Profile"></a>
-                                            <a class="more-author-text" >Project name</a>
-                                        </div>
-                                    </div>
-                                    <a href="product-details.html"><span class="product-name">40 days</span></a>
-                                    <span class="latest-bid">APR 25%</span>
-                                    <div class="bid-react-area">
-                                        <div class="last-bid">0.69MON</div>
-                                        <div class="react-area">
-                                            <span class="number">#12345</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end single product -->
-                        </div>
+                <div class="col-lg-6 order-lg-2 order-md-1 order-sm-1 order-1">
+                    <div class="tilt-image-banner-16">
+                        <img class="tilt" src="/images/banner/king.png" alt="Nft-profile">
                     </div>
                 </div>
             </div>
@@ -113,443 +28,181 @@
     </div>
     <!-- end banner area -->
 
-    <!-- Explore Style Carousel -->
+    <!-- New items Start -->
+    {{#if newest_terms}}
+    <div class="rn-new-items rn-section-gapTop">
+        <div class="container">
+            <div class="row mb--50 align-items-center">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <h3 class="title mb--0 live-bidding-title">Newest Lends</h3>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
+                    <div class="view-more-btn text-start text-sm-end">
+                        <a class="btn-transparent">VIEW ALL<i data-feather="arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5">
+                {{#each newest_terms}}
+                <!-- start single product -->
+                <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 terms" data-contract="{{project.contractAddress}}" data-token="{{project.token.tokenId}}" data-term="{{_id}}">
+                    <div class="product-style-one no-overlay">
+                        <div class="card-thumbnail">
+                            <a>
+                                {{#if project.token.image}}
+                                <img src="{{project.token.image}}" alt="{{project.name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
+                            </a>
+                        </div>
+                        <div class="product-share-wrapper">
+                            <div class="profile-share">
+                                <a class="avatar" data-tooltip="{{project.name}}">
+                                    <img src="{{project.image}}" alt="{{project.name}}">
+                                </a>
+                                <a class="more-author-text">{{project.name}}</a>
+                            </div>
+                        </div>
+                        <a><span class="product-name">{{term.days}} Days</span></a>
+                        <span class="latest-bid">APR {{term.apr}}%</span>
+                        <div class="bid-react-area">
+                            <div class="last-bid">{{term.principal}} {{term.token}}</div>
+                            <div class="react-area">
+                                <span class="number">#{{project.token.tokenId}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end single product -->
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <!-- New items End -->
+    {{/if}}
+
+    {{#if latest_terms}}
+     <!-- Explore Style Carousel -->
     <div class="rn-live-bidding-area rn-section-gapTop">
         <div class="container">
             <div class="row mb--50">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h3 class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">Latest loans</h3>
+                        <h3 class="title mb--0">Latest loans</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="banner-one-slick slick-activation-03 slick-arrow-style-one rn-slick-dot-style slick-gutter-15">
+                        {{#each latest_terms}}
                         <!-- start single product -->
-                        <div class="single-slide-product">
+                        <div class="single-slide-product terms" data-contract="{{project.contractAddress}}" data-token="{{project.token.tokenId}}" data-term="{{_id}}">
                             <div class="product-style-one">
                                 <div class="card-thumbnail">
-                                    <a href="product-details.html"><img src="images/portfolio/portfolio-07.jpg" alt="NFT_portfolio"></a>
+                                    <a>
+                                        {{#if project.token.image}}
+                                        <img src="{{project.token.image}}" alt="{{project.name}}">
+                                        {{else}}
+                                        <img src="/images/logo/logo_contrast.png">
+                                        {{/if}}
+                                    </a>
                                 </div>
                                 <div class="product-share-wrapper">
                                     <div class="profile-share">
-                                        <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                        <a class="more-author-text" >Project name</a>
+                                        <a class="avatar" data-tooltip="{{project.name}}"><img src="{{project.image}}" alt="{{project.name}}"></a>
+                                        <a class="more-author-text" >{{project.name}}</a>
                                     </div>
                                 </div>
-                                <a href="product-details.html"><span class="product-name">35 days</span></a>
-                                <span class="latest-bid">APR 35%</span>
+                                <a>
+                                    <span class="product-name">{{term.days}} days</span>
+                                </a>
+                                <span class="latest-bid">APR {{term.apr}}%</span>
                                 <div class="bid-react-area">
-                                    <div class="last-bid">4.20MON</div>
+                                    <div class="last-bid">{{term.principal}} {{term.token}}</div>
                                     <div class="react-area">
-                                        <span class="number">#12345</span>
+                                        <span class="number">#{{project.token.tokenId}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- end single product -->
-
-                        <!-- start single product -->
-                        <div class="single-slide-product">
-                            <div class="product-style-one">
-                                <div class="card-thumbnail">
-                                    <a href="product-details.html"><img src="images/portfolio/portfolio-10.jpg" alt="NFT_portfolio"></a>
-                                </div>
-                                <div class="product-share-wrapper">
-                                        <div class="profile-share">
-                                            <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                            <a class="more-author-text" >Project name</a>
-                                        </div>
-                                    </div>
-                                    <a href="product-details.html"><span class="product-name">35 days</span></a>
-                                    <span class="latest-bid">APR 35%</span>
-                                    <div class="bid-react-area">
-                                        <div class="last-bid">4.20MON</div>
-                                        <div class="react-area">
-                                            <span class="number">#12345</span>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <!-- end single product -->
-
-                        <!-- start single product -->
-                        <div class="single-slide-product">
-                            <div class="product-style-one">
-                                <div class="card-thumbnail">
-                                    <a href="product-details.html"><img src="images/portfolio/portfolio-03.jpg" alt="NFT_portfolio"></a>
-                                </div>
-                                <div class="product-share-wrapper">
-                                        <div class="profile-share">
-                                            <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                            <a class="more-author-text" >Project name</a>
-                                        </div>
-                                    </div>
-                                    <a href="product-details.html"><span class="product-name">35 days</span></a>
-                                    <span class="latest-bid">APR 35%</span>
-                                    <div class="bid-react-area">
-                                        <div class="last-bid">4.20MON</div>
-                                        <div class="react-area">
-                                            <span class="number">#12345</span>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <!-- end single product -->
-
-                        <!-- start single product -->
-                        <div class="single-slide-product">
-                            <div class="product-style-one">
-                                <div class="card-thumbnail">
-                                    <a href="product-details.html"><img src="images/portfolio/portfolio-04.jpg" alt="NFT_portfolio"></a>
-                                </div>
-                                <div class="product-share-wrapper">
-                                        <div class="profile-share">
-                                            <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                            <a class="more-author-text" >Project name</a>
-                                        </div>
-                                    </div>
-                                    <a href="product-details.html"><span class="product-name">35 days</span></a>
-                                    <span class="latest-bid">APR 35%</span>
-                                    <div class="bid-react-area">
-                                        <div class="last-bid">4.20MON</div>
-                                        <div class="react-area">
-                                            <span class="number">#12345</span>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <!-- end single product -->
-
-                        <!-- start single product -->
-                        <div class="single-slide-product">
-                            <div class="product-style-one">
-                                <div class="card-thumbnail">
-                                    <a href="product-details.html"><img src="images/portfolio/portfolio-06.jpg" alt="NFT_portfolio"></a>
-                                </div>
-                                <div class="product-share-wrapper">
-                                        <div class="profile-share">
-                                            <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                            <a class="more-author-text" >Project name</a>
-                                        </div>
-                                    </div>
-                                    <a href="product-details.html"><span class="product-name">35 days</span></a>
-                                    <span class="latest-bid">APR 35%</span>
-                                    <div class="bid-react-area">
-                                        <div class="last-bid">4.20MON</div>
-                                        <div class="react-area">
-                                            <span class="number">#12345</span>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <!-- end single product -->
-                        <!-- start single product -->
-                        <div class="single-slide-product">
-                            <div class="product-style-one">
-                                <div class="card-thumbnail">
-                                    <a href="product-details.html"><img src="images/portfolio/portfolio-10.jpg" alt="NFT_portfolio"></a>
-                                </div>
-                                <div class="product-share-wrapper">
-                                        <div class="profile-share">
-                                            <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                            <a class="more-author-text" >Project name</a>
-                                        </div>
-                                    </div>
-                                    <a href="product-details.html"><span class="product-name">35 days</span></a>
-                                    <span class="latest-bid">APR 35%</span>
-                                    <div class="bid-react-area">
-                                        <div class="last-bid">4.20MON</div>
-                                        <div class="react-area">
-                                            <span class="number">#12345</span>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <!-- end single product -->
-
+                        {{/each}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Explore Style Carousel End-->
+    {{/if}}
 
-    <!-- New items Start -->
-    <div class="rn-new-items rn-section-gapTop">
-        <div class="container">
-            <div class="row mb--50 align-items-center">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <h3 class="title mb--0" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">Newest Lends</h3>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
-                    <div class="view-more-btn text-start text-sm-end" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                        <a class="btn-transparent" href="index-eleven.html#">VIEW ALL<i data-feather="arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row g-5">
-                <!-- start single product -->
-                <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="product-style-one no-overlay">
-                        <div class="card-thumbnail">
-                            <a href="product-details.html"><img src="images/portfolio/portfolio-01.jpg" alt="NFT_portfolio"></a>
-                        </div>
-                        <div class="product-share-wrapper">
-                            <div class="profile-share">
-                                <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-1.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="index-eleven.html#">Project name</a>
-                            </div>
-                        </div>
-                        <a href="product-details.html"><span class="product-name">20 Days</span></a>
-                        <span class="latest-bid">APR 20%</span>
-                        <div class="bid-react-area">
-                            <div class="last-bid">4.20MON</div>
-                            <div class="react-area">
-                                <span class="number">#12345</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end single product -->
-
-                <!-- start single product -->
-                <div data-sal="slide-up" data-sal-delay="200" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="product-style-one no-overlay">
-                        <div class="card-thumbnail">
-                            <a href="product-details.html"><img src="images/portfolio/portfolio-02.jpg" alt="NFT_portfolio"></a>
-                        </div>
-                        <div class="product-share-wrapper">
-                            <div class="profile-share">
-                                <a href="author.html" class="avatar" data-tooltip="Proejct name"><img src="images/client/client-6.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="index-eleven.html#">Project name</a>
-                            </div>
-                        </div>
-                        <a href="product-details.html"><span class="product-name">45 days</span></a>
-                        <span class="latest-bid">APR 20%</span>
-                        <div class="bid-react-area">
-                            <div class="last-bid">4.20MON</div>
-                            <div class="react-area">
-                                <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
-                                    <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
-                                </svg>
-                                <span class="number">#12345</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end single product -->
-
-                <!-- start single product -->
-                <div data-sal="slide-up" data-sal-delay="250" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="product-style-one no-overlay">
-                        <div class="card-thumbnail">
-                            <a href="product-details.html"><img src="images/portfolio/portfolio-03.jpg" alt="NFT_portfolio"></a>
-                        </div>
-                        <div class="product-share-wrapper">
-                            <div class="profile-share">
-                                <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-8.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="index-eleven.html#">Project name</a>
-                            </div>
-                        </div>
-                        <a href="product-details.html"><span class="product-name">50 days</span></a>
-                        <span class="latest-bid">APR 15%</span>
-                        <div class="bid-react-area">
-                            <div class="last-bid">4.20MON</div>
-                            <div class="react-area">
-                                <span class="number">#12345</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end single product -->
-
-                <!-- start single product -->
-                <div data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="product-style-one no-overlay">
-                        <div class="card-thumbnail">
-                            <a href="product-details.html"><img src="images/portfolio/portfolio-04.jpg" alt="NFT_portfolio"></a>
-                        </div>
-                        <div class="product-share-wrapper">
-                            <div class="profile-share">
-                                <a href="author.html" class="avatar" data-tooltip="Project name"><img src="images/client/client-1.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="index-eleven.html#">Project name</a>
-                            </div>
-                        </div>
-                        <a href="product-details.html"><span class="product-name">10 days</span></a>
-                        <span class="latest-bid">APR 5%</span>
-                        <div class="bid-react-area">
-                            <div class="last-bid">4.20MON</div>
-                            <div class="react-area">
-                                <span class="number">#12345</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end single product -->
-
-                <!-- start single product -->
-                <div data-sal="slide-up" data-sal-delay="350" data-sal-duration="800" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="product-style-one no-overlay">
-                        <div class="card-thumbnail">
-                            <a href="product-details.html"><img src="images/portfolio/portfolio-05.jpg" alt="NFT_portfolio"></a>
-                        </div>
-                        <div class="product-share-wrapper">
-                            <div class="profile-share">
-                                <a href="author.html" class="avatar" data-tooltip="Jone lee"><img src="images/client/client-2.png" alt="Nft_Profile"></a>
-                                <a href="author.html" class="avatar" data-tooltip="Jone lee"><img src="images/client/client-7.png" alt="Nft_Profile"></a>
-                                <a href="author.html" class="avatar" data-tooltip="Jone lee"><img src="images/client/client-9.png" alt="Nft_Profile"></a>
-                                <a class="more-author-text" href="index-eleven.html#">15+ Place Bit.</a>
-                            </div>
-                            <div class="share-btn share-btn-activation dropdown">
-                                <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <svg viewBox="0 0 14 4" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN hOiKLt">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C3.5 2.82843 2.82843 3.5 2 3.5C1.17157 3.5 0.5 2.82843 0.5 2C0.5 1.17157 1.17157 0.5 2 0.5C2.82843 0.5 3.5 1.17157 3.5 2ZM8.5 2C8.5 2.82843 7.82843 3.5 7 3.5C6.17157 3.5 5.5 2.82843 5.5 2C5.5 1.17157 6.17157 0.5 7 0.5C7.82843 0.5 8.5 1.17157 8.5 2ZM11.999 3.5C12.8274 3.5 13.499 2.82843 13.499 2C13.499 1.17157 12.8274 0.5 11.999 0.5C11.1706 0.5 10.499 1.17157 10.499 2C10.499 2.82843 11.1706 3.5 11.999 3.5Z" fill="currentColor"></path>
-                                    </svg>
-                                </button>
-
-                                <div class="share-btn-setting dropdown-menu dropdown-menu-end">
-                                    <button type="button" class="btn-setting-text share-text" data-bs-toggle="modal" data-bs-target="#shareModal">
-                                        Share
-                                    </button>
-                                    <button type="button" class="btn-setting-text report-text" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                        Report
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="product-details.html"><span class="product-name">mAtal8</span></a>
-                        <span class="latest-bid">Highest bid 6/50</span>
-                        <div class="bid-react-area">
-                            <div class="last-bid">4.20MON</div>
-                            <div class="react-area">
-                                <svg viewBox="0 0 17 16" fill="none" width="16" height="16" class="sc-bdnxRM sc-hKFxyN kBvkOu">
-                                    <path d="M8.2112 14L12.1056 9.69231L14.1853 7.39185C15.2497 6.21455 15.3683 4.46116 14.4723 3.15121V3.15121C13.3207 1.46757 10.9637 1.15351 9.41139 2.47685L8.2112 3.5L6.95566 2.42966C5.40738 1.10976 3.06841 1.3603 1.83482 2.97819V2.97819C0.777858 4.36443 0.885104 6.31329 2.08779 7.57518L8.2112 14Z" stroke="currentColor" stroke-width="2"></path>
-                                </svg>
-                                <span class="number">205</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end single product -->
-            </div>
-        </div>
-    </div>
-    <!-- New items End -->
-
+    {{#if top_collections}}
     <!-- collection area Start -->
     <div class="rn-collection-area rn-section-gapTop">
         <div class="container">
             <div class="row mb--50 align-items-center">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <h3 class="title mb--0" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">Top Collections</h3>
+                    <h3 class="title mb--0">Top Collections</h3>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
-                    <div class="view-more-btn text-start text-sm-end" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                        <a class="btn-transparent" href="index.html#">VIEW ALL<i data-feather="arrow-right"></i></a>
+                    <div class="view-more-btn text-start text-sm-end">
+                        <a class="btn-transparent">VIEW ALL<i data-feather="arrow-right"></i></a>
                     </div>
                 </div>
             </div>
 
             <div class="row g-5">
+                {{#each top_collections}}
                 <!-- start single collention -->
-                <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12">
-                    <a href="product-details.html" class="rn-collection-inner-one">
+                <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12">
+                    <a class="rn-collection-inner-one">
                         <div class="collection-wrapper">
                             <div class="collection-big-thumbnail">
-                                <img src="images/collection/collection-lg-01.jpg" alt="Nft_Profile">
+                                {{#if token.images.[0]}}
+                                <img src="{{token.images.[0]}}" alt="{{name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
                             </div>
                             <div class="collenction-small-thumbnail">
-                                <img src="images/collection/collection-sm-01.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-02.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-03.jpg" alt="Nft_Profile">
+                                {{#if token.images.[1]}}
+                                <img src="{{token.images.[1]}}" alt="{{name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
+                                {{#if token.images.[2]}}
+                                <img src="{{token.images.[2]}}" alt="{{name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
+                                {{#if token.images.[3]}}
+                                <img src="{{token.images.[3]}}" alt="{{name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
                             </div>
                             <div class="collection-profile">
-                                <img src="images/client/client-15.png" alt="Nft_Profile">
+                                {{#if image}}
+                                <img src="{{image}}" alt="{{name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
                             </div>
                             <div class="collection-deg">
-                                <h6 class="title">Cubic Trad</h6>
-                                <span class="items">27 Items</span>
+                                <h6 class="title">{{name}}</h6>
+                                <span class="items">{{total}} Items</span>
                             </div>
                         </div>
                     </a>
                 </div>
                 <!-- End single collention -->
-                <!-- start single collention -->
-                <div data-sal="slide-up" data-sal-delay="200" data-sal-duration="800" class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12">
-                    <a href="product-details.html" class="rn-collection-inner-one">
-                        <div class="collection-wrapper">
-                            <div class="collection-big-thumbnail">
-                                <img src="images/collection/collection-lg-03.jpg" alt="Nft_Profile">
-                            </div>
-                            <div class="collenction-small-thumbnail">
-                                <img src="images/collection/collection-sm-04.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-05.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-06.jpg" alt="Nft_Profile">
-                            </div>
-                            <div class="collection-profile">
-                                <img src="images/client/client-12.png" alt="Nft_Profile">
-                            </div>
-                            <div class="collection-deg">
-                                <h6 class="title">45 days</h6>
-                                <span class="items">20 Items</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End single collention -->
-                <!-- start single collention -->
-                <div data-sal="slide-up" data-sal-delay="250" data-sal-duration="800" class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12">
-                    <a href="product-details.html" class="rn-collection-inner-one">
-                        <div class="collection-wrapper">
-                            <div class="collection-big-thumbnail">
-                                <img src="images/collection/collection-lg-02.jpg" alt="Nft_Profile">
-                            </div>
-                            <div class="collenction-small-thumbnail">
-                                <img src="images/collection/collection-sm-07.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-08.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-09.jpg" alt="Nft_Profile">
-                            </div>
-                            <div class="collection-profile">
-                                <img src="images/client/client-13.png" alt="Nft_Profile">
-                            </div>
-                            <div class="collection-deg">
-                                <h6 class="title">Morgan11</h6>
-                                <span class="items">15 Items</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End single collention -->
-                <!-- start single collention -->
-                <div data-sal="slide-up" data-sal-delay="350" data-sal-duration="800" class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-12">
-                    <a href="product-details.html" class="rn-collection-inner-one">
-                        <div class="collection-wrapper">
-                            <div class="collection-big-thumbnail">
-                                <img src="images/collection/collection-lg-04.jpg" alt="Nft_Profile">
-                            </div>
-                            <div class="collenction-small-thumbnail">
-                                <img src="images/collection/collection-sm-10.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-11.jpg" alt="Nft_Profile">
-                                <img src="images/collection/collection-sm-12.jpg" alt="Nft_Profile">
-                            </div>
-                            <div class="collection-profile">
-                                <img src="images/client/client-14.png" alt="Nft_Profile">
-                            </div>
-                            <div class="collection-deg">
-                                <h6 class="title">Orthogon#720</h6>
-                                <span class="items">10 Items</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End single collention -->
+                {{/each}}
             </div>
         </div>
     </div>
     <!-- collection area End -->
+    {{/if}}
 
      <!-- start yap vedio area -->
     <div class="vedio-area rn-section-gapTop">
@@ -562,12 +215,12 @@
             </div>
             <div class="row">
                 <div class="col-12 position-relative">
-                    <a id="play-video" class="video-play-button btn-large with-animation" href="index-seventeen.html#">
+                    <a id="play-video" class="video-play-button btn-large with-animation" href="#">
                         <span></span>
                     </a>
                     <!-- start vedio image wrapper -->
                     <div class="vedio-wrapper">
-                        <img src="images/bg/bg-image-21.jpg" alt="">
+                        <img src="/images/bg/bg-image-21.jpg" alt="">
                     </div>
                     <!-- end vedio image wrapper -->
                     <div id="video-overlay" class="video-overlay">
@@ -593,7 +246,7 @@
                     <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="rn-service-one color-shape-7">
                         <div class="inner">
                             <div class="icon">
-                                <img src="images/icons/shape-7.png" alt="Shape">
+                                <img src="/images/icons/shape-7.png" alt="Shape">
                             </div>
                             <div class="subtitle">Step-01</div>
                             <div class="content">
@@ -611,7 +264,7 @@
                     <div data-sal="slide-up" data-sal-delay="200" data-sal-duration="800" class="rn-service-one color-shape-1">
                         <div class="inner">
                             <div class="icon">
-                                <img src="images/icons/shape-1.png" alt="Shape">
+                                <img src="/images/icons/shape-1.png" alt="Shape">
                             </div>
                             <div class="subtitle">Step-02</div>
                             <div class="content">
@@ -629,7 +282,7 @@
                     <div data-sal="slide-up" data-sal-delay="250" data-sal-duration="800" class="rn-service-one color-shape-5">
                         <div class="inner">
                             <div class="icon">
-                                <img src="images/icons/shape-5.png" alt="Shape">
+                                <img src="/images/icons/shape-5.png" alt="Shape">
                             </div>
                             <div class="subtitle">Step-03</div>
                             <div class="content">
@@ -647,7 +300,7 @@
                     <div data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" class="rn-service-one color-shape-6">
                         <div class="inner">
                             <div class="icon">
-                                <img src="images/icons/shape-6.png" alt="Shape">
+                                <img src="/images/icons/shape-6.png" alt="Shape">
                             </div>
                             <div class="subtitle">Step-04</div>
                             <div class="content">
