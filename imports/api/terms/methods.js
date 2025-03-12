@@ -64,6 +64,8 @@ Meteor.methods({
       );
     }
 
+    console.log("Loan create data ====>", id, wallet, proposal, loan);
+
     const term = await Terms.updateAsync(
       {
         _id: id,
