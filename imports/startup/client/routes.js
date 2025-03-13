@@ -6,6 +6,7 @@ import '../../ui/pages/home/home.js';
 import '../../ui/pages/borrow/borrow.js';
 import '../../ui/pages/borrow/list/list.js';
 import '../../ui/pages/terms/terms.js';
+import '../../ui/pages/lend/lend.js';
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -33,6 +34,13 @@ FlowRouter.route('/terms/:contract/:token/:id', {
   name: 'App.terms',
   action() {
     this.render('App_body', 'App_terms');
+  },
+});
+
+FlowRouter.route('/lend', {
+  name: 'App.lend',
+  action() {
+    this.render('App_body', 'App_lend');
   },
 });
 

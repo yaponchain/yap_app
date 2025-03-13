@@ -1,0 +1,139 @@
+<template name="App_lend">
+    {{> header}}
+    <!-- start page title area -->
+    <div class="rn-breadcrumb-inner ptb--30" {{find_lend_terms}}>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h5 class="title text-center text-md-start">Listed collateral</h5>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-list">
+                        <li class="item"><a href="index.html">Home</a></li>
+                        <li class="separator"><i class="feather-chevron-right"></i></li>
+                        <li class="item current">Lend</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title area -->
+
+    <!-- Start product area -->
+    <div class="rn-product-area rn-section-gapTop">
+        <div class="container">
+            {{!-- <div class="row mb--50 align-items-center">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <h3 class="title mb--0">Explore Lends</h3>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
+                    <div class="view-more-btn text-start text-sm-end">
+                        <button class="discover-filter-button discover-filter-activation btn btn-primary">Filter<i class="feather-filter"></i></button>
+                    </div>
+                </div>
+            </div> --}}
+
+            {{!-- <div class="default-exp-wrapper default-exp-expand">
+                <div class="inner">
+                    <div class="filter-select-option">
+                        <label class="filter-leble">LIKES</label>
+                        <select>
+                            <option data-display="Most liked">Most liked</option>
+                            <option value="1">Least liked</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-select-option">
+                        <label class="filter-leble">Category</label>
+                        <select>
+                            <option data-display="Category">Category</option>
+                            <option value="1">Art</option>
+                            <option value="1">Photograph</option>
+                            <option value="2">Metaverses</option>
+                            <option value="4">Potato</option>
+                            <option value="4">Photos</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-select-option">
+                        <label class="filter-leble">Collections</label>
+                        <select>
+                            <option data-display="Collections">Collections</option>
+                            <option value="1">BoredApeYachtClub</option>
+                            <option value="2">MutantApeYachtClub</option>
+                            <option value="4">Art Blocks Factory</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-select-option">
+                        <label class="filter-leble">Sale type</label>
+                        <select>
+                            <option data-display="Sale type">Sale type</option>
+                            <option value="1">Fixed price</option>
+                            <option value="2">Timed auction</option>
+                            <option value="4">Not for sale</option>
+                            <option value="4">Open for offers</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-select-option">
+                        <label class="filter-leble">Price Range</label>
+                        <div class="price_filter s-filter clear">
+                            <form action="product.html#" method="GET">
+                                <div id="slider-range"></div>
+                                <div class="slider__range--output">
+                                    <div class="price__output--wrap">
+                                        <div class="price--output">
+                                            <span>Price :</span><input type="text" id="amount" readonly>
+                                        </div>
+                                        <div class="price--filter">
+                                            <a class="btn btn-primary btn-small" href="product.html#">Filter</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+
+            <div class="row g-5">
+                {{#each lend_terms}}
+                <!-- start single product -->
+                <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 terms" data-contract="{{project.contractAddress}}" data-token="{{project.token.tokenId}}" data-term="{{_id}}">
+                    <div class="product-style-one no-overlay">
+                        <div class="card-thumbnail">
+                            <a>
+                                {{#if project.token.image}}
+                                <img src="{{project.token.image}}" alt="{{project.name}}">
+                                {{else}}
+                                <img src="/images/logo/logo_contrast.png">
+                                {{/if}}
+                            </a>
+                        </div>
+                        <div class="product-share-wrapper">
+                            <div class="profile-share">
+                                <a class="avatar" data-tooltip="{{project.name}}">
+                                    <img src="{{project.image}}" alt="{{project.name}}">
+                                </a>
+                                <a class="more-author-text">{{project.name}}</a>
+                            </div>
+                        </div>
+                        <a><span class="product-name">{{proposals.[0].term.days}} Days</span></a>
+                        <span class="latest-bid">APR {{proposals.[0].term.apr}}%</span>
+                        <div class="bid-react-area">
+                            <div class="last-bid">{{proposals.[0].term.principal}} {{proposals.[0].term.token}}</div>
+                            <div class="react-area">
+                                <span class="number">#{{project.token.tokenId}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end single product -->
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <!-- end product area -->
+    {{> footer}}
+</template>

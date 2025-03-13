@@ -18,3 +18,9 @@ Meteor.publish('terms.latest', function () {
   
   return terms;
 });
+
+Meteor.publish('terms.lends', function () {
+  const terms = Terms.find({status:"pending"}, {sort: {createdAt: -1}});
+  
+  return terms;
+});
