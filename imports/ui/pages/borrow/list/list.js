@@ -7,7 +7,11 @@ import "./list.html";
 
 import "../../../components/header/header.js";
 import "../../../components/footer/footer.js";
-import { approveNFTForProtocol, createLoanProposal } from "../../../components/contracts/contracts.js";
+import {
+  approveNFTForProtocol,
+  createLoanProposal,
+  simulateInterest,
+} from "../../../components/contracts/contracts.js";
 
 Template.App_borrow_list.onCreated(function () {});
 
@@ -61,7 +65,7 @@ Template.App_borrow_list.helpers({
   },
   validateLoading() {
     return Session.get("loading");
-  }
+  },
 });
 
 Template.App_borrow_list.events({
@@ -77,14 +81,14 @@ Template.App_borrow_list.events({
         if (result?.success) {
           Session.set("approve", true);
           Session.set("loading", null);
-        }else if(result?.error){
+        } else if (result?.error) {
           Session.set("loading", null);
-          if(result.detail.code == 'ACTION_REJECTED'){
+          if (result.detail.code == "ACTION_REJECTED") {
             console.log("User rejected the approve");
-          }else{
+          } else {
             console.log("Error approving NFT");
           }
-        }else{
+        } else {
           Session.set("loading", null);
           console.log("Error approving NFT");
         }
@@ -114,38 +118,40 @@ Template.App_borrow_list.events({
       principal,
       days,
       apr
-    ).then((result) => {
-      if(result.success){
-        Meteor.call(
-          "terms.create",
-          wallet,
-          { principal, token, apr, repay, days},
-          item,
-          result?.proposalId,
-          (error, result) => {
-            if (error) {
-              Session.set("loading", null);
-              console.log("Error ====>", error);
-            } else {
-              Session.set("loading", null);
-              console.log("Result ====>", result);
-              Session.set("list", null);
-              sessionStorage.removeItem("list");
-              FlowRouter.go("/borrow");
+    )
+      .then((result) => {
+        if (result.success) {
+          Meteor.call(
+            "terms.create",
+            wallet,
+            { principal, token, apr, repay, days },
+            item,
+            result?.proposalId,
+            (error, result) => {
+              if (error) {
+                Session.set("loading", null);
+                console.log("Error ====>", error);
+              } else {
+                Session.set("loading", null);
+                console.log("Result ====>", result);
+                Session.set("list", null);
+                sessionStorage.removeItem("list");
+                FlowRouter.go("/borrow");
+              }
             }
+          );
+        } else if (result.error) {
+          Session.set("loading", null);
+          if (result.detail.code == "ACTION_REJECTED") {
+            console.log("User rejected the create");
+          } else {
+            console.log("Error creating loan proposal");
           }
-        );
-      }else if(result.error){
-        Session.set("loading", null);
-        if(result.detail.code == 'ACTION_REJECTED'){
-          console.log("User rejected the create");
-        }else{
-          console.log("Error creating loan proposal");
         }
-      }
-    }).catch((error) => {
-      console.error("Error creating loan proposal:", error);
-    });
+      })
+      .catch((error) => {
+        console.error("Error creating loan proposal:", error);
+      });
   },
   "focusout #principal"(event) {
     event.preventDefault();
@@ -157,8 +163,11 @@ Template.App_borrow_list.events({
 
     if (!principal || !apr || !days) return;
 
-    const repay = principal + principal * (apr / 100) * (days / 365);
-    $("#repay").val(repay.toFixed(2));
+    simulateInterest(principal, apr, days).then((repay) => {
+      if(repay.success){
+        $("#repay").val(repay.interest.toFixed(4));
+      }
+    });
   },
   "focusout #apr"(event) {
     event.preventDefault();
@@ -170,8 +179,11 @@ Template.App_borrow_list.events({
 
     if (!principal || !apr || !days) return;
 
-    const repay = principal + principal * (apr / 100) * (days / 365);
-    $("#repay").val(repay.toFixed(2));
+    simulateInterest(principal, apr, days).then((repay) => {
+      if(repay.success){
+        $("#repay").val(repay.interest.toFixed(4));
+      }
+    });
     document.getElementById("principal").focus();
   },
   "focusout #days"(event) {
@@ -184,29 +196,12 @@ Template.App_borrow_list.events({
     const apr = parseInt($("#apr").val());
     const days = parseInt(event.target.value);
 
-    if (!principal || (!apr && !repay) || !days) return;
+    if (!principal || !apr || !days) return;
 
-    if(principal && apr && days){
-      const repay = principal + principal * (apr / 100) * (days / 365);
-      $("#repay").val(repay.toFixed(2));
-    }
-
-    if(principal && repay && days){
-      const apr = (repay - principal) / (principal * (days / 365)) * 100;
-      $("#apr").val(apr.toFixed(2));
-    }
-  },
-  "focusout #repay"(event) {
-    event.preventDefault();
-    const repay = parseFloat(event.target.value);
-    // @ts-ignore
-    const apr = parseInt($("#apr").val());
-    // @ts-ignore
-    const days = parseInt($("#days").val());
-
-    if (!apr || !repay || !days) return;
-
-    const principal = repay / (1 + (apr / 100) * (days / 365));
-    $("#principal").val(principal.toFixed(2));
+    simulateInterest(principal, apr, days).then((repay) => {
+      if(repay.success){
+        $("#repay").val(repay.interest.toFixed(4));
+      }
+    });
   },
 });

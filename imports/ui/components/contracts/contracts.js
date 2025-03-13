@@ -2,6 +2,11 @@ import { ethers } from "ethers";
 import YapLendCoreABI from "./abis/YapLendCore.json";
 import ProposalManagerABI from "./abis/ProposalManager.json";
 import NFTVerifierABI from "./abis/NFTVerifier.json";
+import LoanVaultABI from "./abis/LoanVault.json";
+import CollateralManagerABI from "./abis/CollateralManager.json";
+import LiquidityPoolABI from "./abis/LiquidityPool.json";
+import NFTEscrowABI from "./abis/NFTEscrow.json";
+import PriceOracleABI from "./abis/PriceOracle.json";
 import IERC721ABI from "./abis/IERC721.json";
 
 const provider = window.ethereum
@@ -23,6 +28,31 @@ const nftVerifier = new ethers.Contract(
   NFTVerifierABI.abi,
   provider
 );
+const loanVault = new ethers.Contract(
+  LoanVaultABI.address,
+  LoanVaultABI.abi,
+  provider
+);
+const collateralManager = new ethers.Contract(
+  CollateralManagerABI.address,
+  CollateralManagerABI.abi,
+  provider
+);
+const liquidityPool = new ethers.Contract(
+  LiquidityPoolABI.address,
+  LiquidityPoolABI.abi,
+  provider
+);
+const nftEscrow = new ethers.Contract(
+  NFTEscrowABI.address,
+  NFTEscrowABI.abi,
+  provider
+);
+const priceOracle = new ethers.Contract(
+  PriceOracleABI.address,
+  PriceOracleABI.abi,
+  provider
+);
 
 async function getSignedContracts() {
   const signer = await provider.getSigner();
@@ -30,13 +60,16 @@ async function getSignedContracts() {
     yapLendCore: yapLendCore.connect(signer),
     proposalManager: proposalManager.connect(signer),
     nftVerifier: nftVerifier.connect(signer),
+    loanVault: loanVault.connect(signer),
+    collateralManager: collateralManager.connect(signer),
+    liquidityPool: liquidityPool.connect(signer),
+    nftEscrow: nftEscrow.connect(signer),
+    priceOracle: priceOracle.connect(signer)
   };
 }
 
-//Methods
 export async function verifyNFTOwnership(userAddress, nftAddress, tokenId) {
   try {
-    // Verificar propriedade via NFTVerifier
     const signer = await provider.getSigner();
 
     const nftContract = new ethers.Contract(
@@ -243,15 +276,103 @@ export async function acceptCounterOffer(counterOfferProposalId) {
 
 export async function repayLoan(loanId, totalAmount) {
   try {
-      const { yapLendCore } = await getSignedContracts();
-      
-      // @ts-ignore
-      const tx = await yapLendCore.repayLoan(loanId,
-  { value: ethers.parseEther(totalAmount.toString()) } );
-      await tx.wait();
-      console.log('Empréstimo repago com sucesso');
-      return { success: true };
-    } catch (error) {
-      console.error('Erro ao repagar empréstimo:', error);
-      return { error: true, detail: error };
-  } }
+    const { yapLendCore } = await getSignedContracts();
+
+    // @ts-ignore
+    const tx = await yapLendCore.repayLoan(loanId, {
+      value: ethers.parseEther(totalAmount.toString()),
+    });
+    await tx.wait();
+    console.log("Empréstimo repago com sucesso");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao repagar empréstimo:", error);
+    return { error: true, detail: error };
+  }
+}
+
+export async function simulateInterest(
+  principal,
+  interestRate,
+  durationInDays
+) {
+  try {
+    const principalWei = ethers.parseEther(principal.toString());
+    const basisPoints = Math.floor(interestRate * 100);
+    const days = Math.floor(durationInDays);
+    const interest = await yapLendCore.simulateInterest.staticCall(
+      principalWei,
+      basisPoints,
+      days
+    );
+
+    return {
+      success: true,
+      interest:
+        parseFloat(principal) + parseFloat(ethers.formatEther(interest)),
+    };
+  } catch (error) {
+    console.error("Erro detalhado ao simular juros:", error);
+    return {
+      error: true,
+      detail: error,
+    };
+  }
+}
+
+export async function calculateInterest(loanId) {
+  try {
+    const interest = await loanVault.calculateInterest.staticCall(loanId);
+
+    return {
+      success: true,
+      interest: parseFloat(ethers.formatEther(interest)),
+    };
+  } catch (error) {
+    console.error("Erro ao simular juros do repay:", error);
+    return {
+      error: true,
+      detail: error,
+    };
+  }
+}
+
+export async function getLoanDetails(loanId) {
+  try {
+    const loan = await yapLendCore.loans(loanId);
+
+    const collaterals = await yapLendCore.getLoanCollaterals(loanId);
+   
+    const loanVault = new ethers.Contract(
+      LoanVaultABI.address,
+      [
+        "function calculateInterest(uint256 loanId) external view returns (uint256)",
+      ],
+      provider
+    );
+    const interest = await loanVault.calculateInterest(loanId);
+
+    return {
+      borrower: loan[0],
+      lender: loan[1],
+      amount: ethers.formatEther(loan[2]),
+      startTime: new Date(Number(loan[3]) * 1000),
+      duration: loan[4] / 86400,
+      interestRate: loan[5] / 100,
+      active: loan[6],
+      liquidated: loan[7],
+      dueDate: new Date((Number(loan[3]) + Number(loan[4])) * 1000),
+      currentInterest: ethers.formatEther(interest),
+      totalToRepay: ethers.formatEther(
+        ethers.toBigInt(loan[2]) + ethers.toBigInt(interest)
+      ), 
+      collaterals: collaterals.map((c) => ({
+        nftAddress: c[0],
+        tokenId: c[1].toString(),
+      })),
+    };
+  } catch (error) {
+    console.error("Erro ao obter detalhes do empréstimo:", error);
+    throw error;
+  }
+}

@@ -16,6 +16,8 @@ import {
   rejectCounterOffer,
   acceptCounterOffer,
   repayLoan,
+  simulateInterest,
+  calculateInterest,
 } from "../../components/contracts/contracts.js";
 
 Template.App_terms.onCreated(function () {});
@@ -81,7 +83,7 @@ Template.App_terms.helpers({
       const proposal = detail.proposals.find(
         (proposal) => proposal.status == "loaned"
       );
-      
+
       return moment(proposal?.updatedAt)
         .add(proposal?.term?.days, "days")
         .format("DD/MM/YYYY HH:mm");
@@ -258,6 +260,10 @@ Template.App_terms.events({
               } else {
                 Session.set("loading", null);
                 console.log("Result ====>", result);
+                $("#principal").val("");
+                $("#repay").val("");
+                $("#days").val("");
+                $("#apr").val("");
               }
             }
           );
@@ -291,36 +297,47 @@ Template.App_terms.events({
     if (!termId || !proposalId || !loanId || !repay || !wallet) return;
 
     Session.set("loading", true);
-    repayLoan(loanId, repay)
-      .then((result) => {
-        if (result.success) {
-          Meteor.call(
-            "terms.repay",
-            termId,
-            wallet,
-            proposalId,
-            (error, result) => {
-              if (error) {
-                Session.set("loading", null);
-                console.log("Error ====>", error);
-              } else {
-                Session.set("loading", null);
-                console.log("Result ====>", result);
+    calculateInterest(loanId).then((calcResult) => {
+      if(calcResult.success){
+        repayLoan(loanId, calcResult.interest)
+        .then((result) => {
+          if (result.success) {
+            Meteor.call(
+              "terms.repay",
+              termId,
+              wallet,
+              proposalId,
+              (error, result) => {
+                if (error) {
+                  Session.set("loading", null);
+                  console.log("Error ====>", error);
+                } else {
+                  Session.set("loading", null);
+                  console.log("Result ====>", result);
+                }
               }
+            );
+          } else if (result.error) {
+            Session.set("loading", null);
+            if (result.detail.code == "ACTION_REJECTED") {
+              console.log("User rejected the create");
+            } else {
+              console.log("Error creating loan proposal");
             }
-          );
-        } else if (result.error) {
-          Session.set("loading", null);
-          if (result.detail.code == "ACTION_REJECTED") {
-            console.log("User rejected the create");
-          } else {
-            console.log("Error creating loan proposal");
           }
-        }
-      })
-      .catch((error) => {
-        console.error("Error creating loan proposal:", error);
-      });
+        })
+        .catch((error) => {
+          Session.set("loading", null);
+          console.error("Error creating loan proposal:", error);
+        });
+      }else{
+        Session.set("loading", null);
+        console.error("Error calculating interest:", calcResult);
+      }
+    }).catch((error) => {
+      Session.set("loading", null);
+      console.error("Error calculating interest:", error);
+    });
   },
   "focusout #principal"(event) {
     event.preventDefault();
@@ -332,8 +349,11 @@ Template.App_terms.events({
 
     if (!principal || !apr || !days) return;
 
-    const repay = principal + principal * (apr / 100) * (days / 365);
-    $("#repay").val(repay.toFixed(2));
+    simulateInterest(principal, apr, days).then((repay) => {
+      if (repay.success) {
+        $("#repay").val(repay.interest.toFixed(4));
+      }
+    });
   },
   "focusout #apr"(event) {
     event.preventDefault();
@@ -345,8 +365,11 @@ Template.App_terms.events({
 
     if (!principal || !apr || !days) return;
 
-    const repay = principal + principal * (apr / 100) * (days / 365);
-    $("#repay").val(repay.toFixed(2));
+    simulateInterest(principal, apr, days).then((repay) => {
+      if (repay.success) {
+        $("#repay").val(repay.interest.toFixed(4));
+      }
+    });
     document.getElementById("principal").focus();
   },
   "focusout #days"(event) {
@@ -359,29 +382,12 @@ Template.App_terms.events({
     const apr = parseInt($("#apr").val());
     const days = parseInt(event.target.value);
 
-    if (!principal || (!apr && !repay) || !days) return;
+    if (!principal || !apr || !days) return;
 
-    if (principal && apr && days) {
-      const repay = principal + principal * (apr / 100) * (days / 365);
-      $("#repay").val(repay.toFixed(2));
-    }
-
-    if (principal && repay && days) {
-      const apr = ((repay - principal) / (principal * (days / 365))) * 100;
-      $("#apr").val(apr.toFixed(2));
-    }
-  },
-  "focusout #repay"(event) {
-    event.preventDefault();
-    const repay = parseFloat(event.target.value);
-    // @ts-ignore
-    const apr = parseInt($("#apr").val());
-    // @ts-ignore
-    const days = parseInt($("#days").val());
-
-    if (!apr || !repay || !days) return;
-
-    const principal = repay / (1 + (apr / 100) * (days / 365));
-    $("#principal").val(principal.toFixed(2));
+    simulateInterest(principal, apr, days).then((repay) => {
+      if (repay.success) {
+        $("#repay").val(repay.interest.toFixed(4));
+      }
+    });
   },
 });
