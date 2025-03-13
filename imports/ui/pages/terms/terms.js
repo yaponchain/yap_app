@@ -17,7 +17,7 @@ import {
   acceptCounterOffer,
   repayLoan,
   simulateInterest,
-  calculateInterest,
+  getRepaymentAmount,
 } from "../../components/contracts/contracts.js";
 
 Template.App_terms.onCreated(function () {});
@@ -62,18 +62,31 @@ Template.App_terms.helpers({
     return Session.get("loading");
   },
   validateWallet() {
-    const detail = Session.get("detail");
-    const wallet = sessionStorage.getItem("wallet");
+    const wallet = Session.get("wallet");
 
-    if (detail?.owner === wallet || !wallet) {
+    if (wallet) {
       return true;
+    }else{
+      return false;
+    }
+  },
+  validateOwner() {
+    const detail = Session.get("detail");
+    const wallet = Session.get("wallet");
+
+    if (detail?.owner === wallet) {
+      return true;
+    }else{
+      return false;
     }
   },
   validateCounterOffer(proposal) {
-    const wallet = sessionStorage.getItem("wallet");
+    const wallet = Session.get("wallet");
 
     if (proposal.status == "pending" && proposal.wallet != wallet) {
       return true;
+    }else{
+      return false;
     }
   },
   validateLoan() {
@@ -280,7 +293,7 @@ Template.App_terms.events({
         console.error("Error creating loan proposal:", error);
       });
   },
-  "click #repay"(event) {
+  "click #repay_loan"(event) {
     event.preventDefault();
     // @ts-ignore
     const termId = FlowRouter.getParam("id");
@@ -297,9 +310,9 @@ Template.App_terms.events({
     if (!termId || !proposalId || !loanId || !repay || !wallet) return;
 
     Session.set("loading", true);
-    calculateInterest(loanId).then((calcResult) => {
+    getRepaymentAmount(loanId).then((calcResult) => {
       if(calcResult.success){
-        repayLoan(loanId, calcResult.interest)
+        repayLoan(loanId, calcResult.repayValue)
         .then((result) => {
           if (result.success) {
             Meteor.call(

@@ -299,11 +299,11 @@ export async function simulateInterest(
   try {
     const principalWei = ethers.parseEther(principal.toString());
     const basisPoints = Math.floor(interestRate * 100);
-    const days = Math.floor(durationInDays);
+    const seconds = Math.floor(durationInDays) * 24 * 60 * 60;
     const interest = await yapLendCore.simulateInterest.staticCall(
       principalWei,
       basisPoints,
-      days
+      seconds
     );
 
     return {
@@ -374,5 +374,22 @@ export async function getLoanDetails(loanId) {
   } catch (error) {
     console.error("Erro ao obter detalhes do empréstimo:", error);
     throw error;
+  }
+}
+
+export async function getRepaymentAmount(loanId) {
+  try {
+    const repayValue = await yapLendCore.getRepaymentAmount.staticCall(loanId);
+
+    return {
+      success: true,
+      repayValue: parseFloat(ethers.formatEther(repayValue)),
+    };
+  } catch (error) {
+    console.error("Erro ao simular juros do repay:", error);
+    return {
+      error: true,
+      detail: error,
+    };
   }
 }

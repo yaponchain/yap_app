@@ -104,31 +104,27 @@
                                             </div>
                                         </div>
                                         <!-- single -->
-                                        {{#if validateWallet}}
-                                            {{#if validateLoan}}
-                                            <div class="place-bet-area mt-3">
-                                                <button id="repay" type="button" class="btn btn-primary-alta">
-                                                    {{#if validateLoading}}
-                                                    <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
-                                                    {{else}}
-                                                    Repay loan
-                                                    {{/if}}
-                                                </button>
-                                            </div>
+                                        <div class="place-bet-area mt-3">
+                                            {{#if validateWallet}}
+                                                {{#unless validateOwner}}
+                                                    <button id="accept" type="button" class="btn btn-primary-alta">
+                                                        {{#if validateLoading}}
+                                                            <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                        {{else}}
+                                                            Accept offer
+                                                        {{/if}}
+                                                    </button>
+                                                {{else}}
+                                                    <button id="repay_loan" type="button" class="btn btn-primary-alta">
+                                                        {{#if validateLoading}}
+                                                            <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                        {{else}}
+                                                            Repay loan
+                                                        {{/if}}
+                                                    </button>
+                                                {{/unless}}
                                             {{/if}}
-                                        {{else}}
-                                            {{#unless validateLoan}}
-                                            <div class="place-bet-area mt-3">
-                                                <button id="accept" type="button" class="btn btn-primary-alta">
-                                                    {{#if validateLoading}}
-                                                    <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
-                                                    {{else}}
-                                                    Accept offer
-                                                    {{/if}}
-                                                </button>
-                                            </div>
-                                            {{/unless}}
-                                        {{/if}}
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                         <div class="place-bet-area mt-3">

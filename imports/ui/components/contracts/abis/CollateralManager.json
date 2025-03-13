@@ -1,6 +1,6 @@
 {
   "contractName": "CollateralManager",
-  "address": "0x92e4bA72513C6e2a80235fF5cD8060f9d2F5C65e",
+  "address": "0xecb85226744B135c56659C92f22DACEF1F444a20",
   "abi": [
     {
       "inputs": [],
@@ -186,6 +186,37 @@
         }
       ],
       "name": "CollectionAllowListUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "escrowAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        }
+      ],
+      "name": "EmergencyNFTRelease",
       "type": "event"
     },
     {
@@ -536,6 +567,24 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "escrowAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        }
+      ],
+      "name": "emergencyReleaseNFT",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {

@@ -1,6 +1,6 @@
 {
   "contractName": "LoanVault",
-  "address": "0xcd03Bb5f8035bF20dbAf9477C972292FE065CeE6",
+  "address": "0xC7BDc1F908bCEC19Eb12C2713a2cd387C1324fB9",
   "abi": [
     {
       "inputs": [],
@@ -195,6 +195,25 @@
         }
       ],
       "name": "InterestAccrued",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "reason",
+          "type": "string"
+        }
+      ],
+      "name": "InterestCalculationFailed",
       "type": "event"
     },
     {

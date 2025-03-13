@@ -138,7 +138,6 @@ Meteor.methods({
     const term = await Terms.updateAsync(
       {
         _id: id,
-        "proposals.wallet": wallet,
         "proposals.id": proposal,
       },
       {
