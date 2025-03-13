@@ -17028,7 +17028,7 @@ button .small-image {
   justify-content: center;
 }
 .author-wrapper .author-inner .user-thumbnail img {
-  border: 15px solid #13131d;
+  /* border: 15px solid #13131d; */
   border-radius: 5px;
   position: relative;
   max-width: 170px;

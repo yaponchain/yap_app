@@ -1,0 +1,151 @@
+<template name="App_profile">
+    {{> header}}
+    <div class="rn-author-bg-area bg_image--9 bg_image ptb--150" {{find_lend_terms}} {{find_loan_terms}}>
+        <div class="container">
+            <div class="row">
+            </div>
+        </div>
+    </div>
+
+    <div class="rn-author-area mb--30 mt_dec--120">
+        <div class="container">
+            <div class="row padding-tb-50 align-items-center d-flex">
+                <div class="col-lg-12">
+                    <div class="author-wrapper">
+                        <div class="author-inner">
+                            <div class="user-thumbnail">
+                                <img src="/images/icons/yap_icon_white.png" alt="">
+                            </div>
+                            <div class="rn-author-info-content">
+                                <h4 class="title">{{connectedAddress}}</h4>
+                                {{!-- <a href="author.html#" class="social-follw">
+                                    <i data-feather="twitter"></i>
+                                    <span class="user-name">it0bsession</span>
+                                </a>
+                                <div class="follow-area">
+                                    <div class="follow followers">
+                                        <span>186k <a href="author.html#" class="color-body">followers</a></span>
+                                    </div>
+                                    <div class="follow following">
+                                        <span>156 <a href="author.html#" class="color-body">following</a></span>
+                                    </div>
+                                </div> --}}
+                                <div class="author-button-area">
+                                    <span id="disconnectbtn" class="btn at-follw follow-button"><i data-feather="log-out"></i> Disconect</span>
+                                    {{!-- <a href="edit-profile.html" class="btn at-follw follow-button edit-btn"><i data-feather="edit"></i></a> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rn-authore-profile-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-wrapper-one">
+                        <nav class="tab-button-one">
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">My lends</button>
+                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">My loans</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content rn-bid-content" id="nav-tabContent">
+                <div class="tab-pane row g-5 d-flex fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    {{#if lend_terms}}
+                    {{#each lend_terms}}
+                    <!-- start single product -->
+                    <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 terms" data-contract="{{project.contractAddress}}" data-token="{{project.token.tokenId}}" data-term="{{_id}}">
+                        <div class="product-style-one no-overlay">
+                            <div class="card-thumbnail">
+                                <a>
+                                    {{#if project.token.image}}
+                                    <img src="{{project.token.image}}" alt="{{project.name}}">
+                                    {{else}}
+                                    <img src="/images/logo/logo_contrast.png">
+                                    {{/if}}
+                                </a>
+                            </div>
+                            <div class="product-share-wrapper">
+                                <div class="profile-share">
+                                    <a class="avatar" data-tooltip="{{project.name}}">
+                                        <img src="{{project.image}}" alt="{{project.name}}">
+                                    </a>
+                                    <a class="more-author-text">{{project.name}}</a>
+                                </div>
+                            </div>
+                            <a><span class="product-name">{{proposals.[0].term.days}} Days</span></a>
+                            <span class="latest-bid">APR {{proposals.[0].term.apr}}%</span>
+                            <div class="bid-react-area">
+                                <div class="last-bid">{{proposals.[0].term.principal}} {{proposals.[0].term.token}}</div>
+                                <div class="react-area">
+                                    <span class="number">#{{project.token.tokenId}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single product -->
+                    {{/each}}
+                    {{else}}
+                    <div class="col-12">
+                        <div class="text-center color-primary" role="">
+                            No items found
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="tab-pane row g-5 d-flex fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    {{#if loan_terms}}
+                    {{#each loan_terms}}
+                    <!-- start single product -->
+                    <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12 terms" data-contract="{{project.contractAddress}}" data-token="{{project.token.tokenId}}" data-term="{{_id}}">
+                        <div class="product-style-one no-overlay">
+                            <div class="card-thumbnail">
+                                <a>
+                                    {{#if project.token.image}}
+                                    <img src="{{project.token.image}}" alt="{{project.name}}">
+                                    {{else}}
+                                    <img src="/images/logo/logo_contrast.png">
+                                    {{/if}}
+                                </a>
+                            </div>
+                            <div class="product-share-wrapper">
+                                <div class="profile-share">
+                                    <a class="avatar" data-tooltip="{{project.name}}">
+                                        <img src="{{project.image}}" alt="{{project.name}}">
+                                    </a>
+                                    <a class="more-author-text">{{project.name}}</a>
+                                </div>
+                            </div>
+                            <a><span class="product-name">{{proposals.[0].term.days}} Days</span></a>
+                            <span class="latest-bid">APR {{proposals.[0].term.apr}}%</span>
+                            <div class="bid-react-area">
+                                <div class="last-bid">{{proposals.[0].term.principal}} {{proposals.[0].term.token}}</div>
+                                <div class="react-area">
+                                    <span class="number">#{{project.token.tokenId}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end single product -->
+                    {{/each}}
+                    {{else}}
+                    <div class="col-12">
+                        <div class="text-center color-primary" role="">
+                            No items found
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> footer}}
+</template>
