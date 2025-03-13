@@ -7,6 +7,7 @@ import '../../ui/pages/borrow/borrow.js';
 import '../../ui/pages/borrow/list/list.js';
 import '../../ui/pages/terms/terms.js';
 import '../../ui/pages/lend/lend.js';
+import '../../ui/pages/loan/loan.js';
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -41,6 +42,13 @@ FlowRouter.route('/lend', {
   name: 'App.lend',
   action() {
     this.render('App_body', 'App_lend');
+  },
+});
+
+FlowRouter.route('/loan', {
+  name: 'App.loan',
+  action() {
+    this.render('App_body', 'App_loan');
   },
 });
 

@@ -43,6 +43,7 @@ Template.App_body.onCreated(function() {
     Meteor.subscribe("terms.latest");
     Meteor.subscribe("collections.top");
     Meteor.subscribe("terms.lend");
+    Meteor.subscribe("terms.loan");
 });
 
 Template.App_body.onRendered(function() {

@@ -24,3 +24,9 @@ Meteor.publish('terms.lends', function () {
   
   return terms;
 });
+
+Meteor.publish('terms.loans', function () {
+  const terms = Terms.find({status:"loaned"}, {sort: {createdAt: -1}});
+  
+  return terms;
+});
