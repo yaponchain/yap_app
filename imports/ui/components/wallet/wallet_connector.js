@@ -20,10 +20,10 @@ export function detectWallets() {
   const wallets = [
     { name: "MetaMask", logo: walletLogos.MetaMask, available: !!window.ethereum?.isMetaMask },
     { name: "Rabby", logo: walletLogos.Rabby, available: !!window.ethereum?.isRabby },
-    // @ts-ignore
+    /* // @ts-ignore
     { name: "Backpack", logo: walletLogos.Backpack, available: !!window?.backpack || !!window.ethereum?.isBackpack  },
     // @ts-ignore
-    { name: "Haha", logo: walletLogos.Haha, available: !!window?.haha || !!window.ethereum?.isHaha},
+    { name: "Haha", logo: walletLogos.Haha, available: !!window?.haha || !!window.ethereum?.isHaha}, */
   ];
   return wallets.filter(wallet => wallet.available);
 }
