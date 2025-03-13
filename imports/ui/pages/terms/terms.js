@@ -104,9 +104,9 @@ Template.App_terms.events({
     const proposalId = Session.get("detail")?.proposals[0]?.id;
     // @ts-ignore
     const principal = Session.get("detail")?.proposals[0]?.term?.principal;
-    const wallet = sessionStorage.getItem("wallet");
+    const lender = sessionStorage.getItem("wallet");
 
-    if (!termId || !proposalId || !principal || !wallet) return;
+    if (!termId || !proposalId || !principal || !lender) return;
 
     Session.set("loading", true);
     acceptOriginalProposal(proposalId, principal)
@@ -115,7 +115,7 @@ Template.App_terms.events({
           Meteor.call(
             "terms.loan",
             termId,
-            wallet,
+            lender,
             proposalId,
             result?.loanId,
             (error, result) => {
@@ -185,11 +185,11 @@ Template.App_terms.events({
   "click #counter"(event) {
     event.preventDefault();
     const proposalId = event.currentTarget.getAttribute("data-id");
-    const wallet = event.currentTarget.getAttribute("data-wallet");
+    const lender = event.currentTarget.getAttribute("data-wallet");
     // @ts-ignore
     const termId = FlowRouter.getParam("id");
 
-    if (!proposalId || !wallet || !termId) return;
+    if (!proposalId || !lender || !termId) return;
 
     Session.set("loading", true);
     acceptCounterOffer(proposalId)
@@ -198,7 +198,7 @@ Template.App_terms.events({
           Meteor.call(
             "terms.loan",
             termId,
-            wallet,
+            lender,
             proposalId,
             result?.loanId,
             (error, result) => {

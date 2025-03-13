@@ -56,20 +56,19 @@ Meteor.methods({
 
     return { success: true, term: term };
   },
-  async "terms.loan"(id, wallet, proposal, loan) {
-    if (!id || !wallet || !proposal || !loan) {
+  async "terms.loan"(id, lender, proposal, loan) {
+    if (!id || !lender || !proposal || !loan) {
       throw new Meteor.Error(
         "loan-problem",
         "Data required to create the proposal not provided."
       );
     }
 
-    console.log("Loan create data ====>", id, wallet, proposal, loan);
+    console.log("Loan create data ====>", id, lender, proposal, loan);
 
     const term = await Terms.updateAsync(
       {
         _id: id,
-        "proposals.wallet": wallet,
         "proposals.id": proposal,
       },
       {
@@ -77,6 +76,7 @@ Meteor.methods({
           "proposals.$.status": "loaned",
           "proposals.$.updatedAt": new Date(),
           loan: loan,
+          lender: lender,
           status: "loaned",
           updatedAt: new Date(),
         },
