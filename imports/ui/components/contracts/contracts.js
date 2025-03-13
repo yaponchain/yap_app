@@ -393,3 +393,19 @@ export async function getRepaymentAmount(loanId) {
     };
   }
 }
+
+export async function cancelProposal(proposalId) {
+  try {
+    const { proposalManager } = await getSignedContracts();
+
+    // @ts-ignore
+    const tx = await proposalManager.cancelProposal(proposalId);
+    const receipt = await tx.wait();
+
+    console.log("Oferta cancelada com sucesso:", proposalId);
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao cancelar Oferta:", error);
+    return { error: true, detail: error };
+  }
+}

@@ -3,12 +3,13 @@ import { Template } from "meteor/templating";
 import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 import { Session } from "meteor/session";
 import moment from "moment";
+import { Terms } from "/imports/api/terms/terms";
+import { cancelProposal } from "../../components/contracts/contracts.js";
 
 import "./borrow.html";
 
 import "../../components/header/header.js";
 import "../../components/footer/footer.js";
-import { Terms } from "/imports/api/terms/terms";
 
 Template.App_borrow.onCreated(function () {
   const wallet = sessionStorage.getItem("wallet");
@@ -51,9 +52,7 @@ Template.App_borrow.onCreated(function () {
   }
 });
 
-Template.App_borrow.onRendered(function () {
-
-});
+Template.App_borrow.onRendered(function () {});
 
 Template.App_borrow.onDestroyed(function () {});
 
@@ -114,6 +113,9 @@ Template.App_borrow.helpers({
   normalize_date(date) {
     return moment(date).format("DD/MM/YYYY HH:mm");
   },
+  validateProposal(status, termStatus) {
+    return status == termStatus;
+  },
 });
 
 Template.App_borrow.events({
@@ -126,9 +128,40 @@ Template.App_borrow.events({
       FlowRouter.go(`/borrow/${contract}/${token}`);
     }
   },
+  "click #cancel": function (event) {
+    event.preventDefault();
+    const proposalId = event.currentTarget.getAttribute("data-id");
+
+    if (!proposalId) return;
+
+    Session.set("loading", true);
+    cancelProposal(proposalId)
+      .then((result) => {
+        Session.set("loading", false);
+        if (result) {
+          console.log("Cancelado com sucesso");
+        } else {
+          console.log("Erro ao cancelar");
+        }
+      })
+      .catch((error) => {
+        console.log("Erro ao cancelar", error);
+        Session.set("loading", false);
+      });
+  },
+  "click #detail"(event) {
+      event.preventDefault();
+      const contract = event.currentTarget.getAttribute("data-contract");
+      const token = event.currentTarget.getAttribute("data-token");
+      const term = event.currentTarget.getAttribute("data-term");
+     
+      if (contract && token && term) {
+          FlowRouter.go(`/terms/${contract}/${token}/${term}`);
+      }
+  }
 });
 
 const find_terms = () => {
   const wallet = sessionStorage.getItem("wallet");
-  return Terms.find({owner:wallet}).fetch();
+  return Terms.find({ owner: wallet }).fetch();
 };

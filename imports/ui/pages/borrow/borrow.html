@@ -111,13 +111,16 @@
                                         <span>Date</span>
                                     </th>
                                     <th>
+                                        <span>Status</span>
+                                    </th>
+                                    <th>
                                         <span>Action</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each t in terms}}
-                                <tr {{!-- class="color-light" --}}>
+                                <tr>
                                     <td><span>{{t.project.name}}</span></td>
                                     <td><span>#{{t.project.token.tokenId}}</span></td>
                                     <td><span class="color-green">{{t.proposals.[0].term.principal}}</span></td>
@@ -125,7 +128,19 @@
                                     <td><span>{{t.proposals.[0].term.days}}</span></td>
                                     <td><span>{{t.proposals.[0].term.apr}}</span></td>
                                     <td><span>{{normalize_date t.createdAt}}</span></td>
-                                    <td><span class="color-danger">-</span></td>
+                                    <td><span>{{t.status}}</span></td>
+                                    <td><span>
+                                        <button id="detail" class="btn btn-primary btn-small mr--10" data-contract="{{t.project.contractAddress}}" data-token="{{t.project.token.tokenId}}" data-term="{{t._id}}">Detail</button>
+                                        {{#if validateProposal "pending" t.status}}
+                                        <button id="cancel" class="btn btn-primary-alta btn-small" data-id="{{t.proposals.[0].id}}">
+                                            {{#if validateLoading}}
+                                            <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                            {{else}}
+                                            Cancel
+                                            {{/if}}
+                                        </button>
+                                        {{/if}}
+                                    </span></td>
                                 </tr>
                                 {{/each}}
                             </tbody>
