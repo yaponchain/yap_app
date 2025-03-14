@@ -9,6 +9,7 @@ import '../../ui/pages/terms/terms.js';
 import '../../ui/pages/lend/lend.js';
 import '../../ui/pages/loan/loan.js';
 import '../../ui/pages/profile/profile.js';
+import '../../ui/pages/about/about.js';
 
 // Set up all routes in the app
 FlowRouter.route('/', {
@@ -57,6 +58,13 @@ FlowRouter.route('/profile', {
   name: 'App.profile',
   action() {
     this.render('App_body', 'App_profile');
+  },
+});
+
+FlowRouter.route('/about', {
+  name: 'App.about',
+  action() {
+    this.render('App_body', 'App_about');
   },
 });
 
