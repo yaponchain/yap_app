@@ -125,7 +125,7 @@ Template.App_terms.events({
     acceptOriginalProposal(proposalId, principal)
       .then((result) => {
         if (result.success) {
-          Meteor.callAsync(
+          Meteor.call(
             "terms.loan",
             termId,
             lender,
@@ -167,7 +167,7 @@ Template.App_terms.events({
     rejectCounterOffer(proposalId)
       .then((result) => {
         if (result.success) {
-          Meteor.callAsync(
+          Meteor.call(
             "terms.reject",
             termId,
             wallet,
@@ -208,7 +208,7 @@ Template.App_terms.events({
     acceptCounterOffer(proposalId)
       .then((result) => {
         if (result.success) {
-          Meteor.callAsync(
+          Meteor.call(
             "terms.loan",
             termId,
             lender,
@@ -260,7 +260,7 @@ Template.App_terms.events({
     createCounterOffer(proposalId, principal, days, apr, 1)
       .then((result) => {
         if (result.success) {
-          Meteor.callAsync(
+          Meteor.call(
             "terms.proposal",
             termId,
             wallet,
@@ -315,7 +315,7 @@ Template.App_terms.events({
         repayLoan(loanId, calcResult.repayValue)
         .then((result) => {
           if (result.success) {
-            Meteor.callAsync(
+            Meteor.call(
               "terms.repay",
               termId,
               wallet,
