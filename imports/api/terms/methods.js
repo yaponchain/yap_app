@@ -83,20 +83,7 @@ Meteor.methods({
       }
     );
 
-    /* const t = await Terms.findOneAsync({ _id: id });
-
-    t?.proposals?.forEach(async (proposal, index) => {
-      if (proposal.wallet !== wallet && proposal.id !== id) {
-        const status = `proposals.${index}.status`;
-        const updated = `proposals.${index}.updatedAt`;
-        await Terms.updateAsync(
-          { _id: id },
-          { $set: { [status]: "canceled", [updated]: new Date() } }
-        );
-      }
-    }); */
-
-    console.log("Term updated ====>", term);
+    console.log("Loan create updated ====>", term);
 
     return { success: true, term: term };
   },
@@ -108,10 +95,11 @@ Meteor.methods({
       );
     }
 
+    console.log("Proposal reject data ====>", id, wallet, proposal);
+
     const term = await Terms.updateAsync(
       {
         _id: id,
-        "proposals.wallet": wallet,
         "proposals.id": proposal,
       },
       {
@@ -123,7 +111,7 @@ Meteor.methods({
       }
     );
 
-    console.log("Term updated ====>", term);
+    console.log("Term reject updated ====>", term);
 
     return { success: true, term: term };
   },
@@ -134,6 +122,8 @@ Meteor.methods({
         "Data required to create the proposal not provided."
       );
     }
+
+    console.log("Proposal repay data ====>", id, wallet, proposal);
 
     const term = await Terms.updateAsync(
       {
@@ -150,7 +140,7 @@ Meteor.methods({
       }
     );
 
-    console.log("Term updated ====>", term);
+    console.log("Term repay updated ====>", term);
 
     return { success: true, term: term };
   },
