@@ -120,15 +120,17 @@
                                                     </div>
                                                 {{/unless}}
                                             {{else}}
-                                                <div class="place-bet-area mt-3">
-                                                    <button id="repay_loan" type="button" class="btn btn-primary-alta">
-                                                        {{#if validateLoading}}
-                                                            <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
-                                                        {{else}}
-                                                            Repay loan
-                                                        {{/if}}
-                                                    </button>
-                                                </div>
+                                                {{#if validateLoan}}
+                                                    <div class="place-bet-area mt-3">
+                                                        <button id="repay_loan" type="button" class="btn btn-primary-alta">
+                                                            {{#if validateLoading}}
+                                                                <span class="spinner-border spinner-border-md" role="status" aria-hidden="true"></span>
+                                                            {{else}}
+                                                                Repay loan
+                                                            {{/if}}
+                                                        </button>
+                                                    </div>
+                                                {{/if}}
                                             {{/unless}}
                                         {{/if}}
                                     </div>
