@@ -116,7 +116,7 @@ export async function approveNFTForProtocol(nftAddress, tokenId) {
     const nftContract = new ethers.Contract(nftAddress, IERC721ABI, signer);
 
     const tx = await nftContract.approve(
-      "0x92e4bA72513C6e2a80235fF5cD8060f9d2F5C65e",
+      CollateralManagerABI.address,
       tokenId
     );
 
@@ -409,3 +409,4 @@ export async function cancelProposal(proposalId) {
     return { error: true, detail: error };
   }
 }
+
