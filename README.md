@@ -1,4 +1,3 @@
-```markdown
 # YAP ON CHAIN - LEND & BORROW
 
 ## Description
@@ -100,9 +99,9 @@ Environment variables are configured in the .env file. Make sure to set the foll
 - `MONAD_URL`: URL of the Monad API at Blockvision.
 - `MONAD_KEY`: API key for authentication with the Monad API at Blockvision.
 
-## 
+## Testing
 
-TestingTo run the tests, use the following command:
+To run the tests, use the following command:
 ```sh
 meteor npm test
 ```
@@ -114,4 +113,3 @@ This project is owned by YAP ON CHAIN, designed and developed by NAD members for
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
-```
