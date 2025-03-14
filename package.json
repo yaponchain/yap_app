@@ -1,5 +1,9 @@
 {
-  "name": "meteor-app",
+  "name": "yap_app",
+  "version": "0.0.1",
+  "description": "YAP ON CHAIN | Lend & Borrow",
+  "repository": "https://github.com/yaponchain/yap_app",
+  "author": "YAP",
   "private": true,
   "scripts": {
     "start": "meteor run",
@@ -19,7 +23,7 @@
     "@walletconnect/sign-client": "^2.19.0",
     "@walletconnect/utils": "^2.19.0",
     "@walletconnect/web3-provider": "^1.8.0",
-    "axios": "^1.8.1",
+    "axios": "^1.8.2",
     "desandro-matches-selector": "^2.0.2",
     "dotenv": "^16.4.7",
     "ethers": "^6.13.5",
